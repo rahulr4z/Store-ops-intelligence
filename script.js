@@ -951,8 +951,8 @@ function initializeLatencyTrendChart(suffix = '') {
     const updateReviewTimeData = [2.2, 2.0, 1.9, 1.85, 1.8, 1.8, 1.8, 1.8];
     
     window[chartKey] = new Chart(ctx, {
-            type: 'line',
-            data: {
+        type: 'line',
+        data: {
             labels: labels,
                 datasets: [
                     {
@@ -1010,16 +1010,16 @@ function initializeLatencyTrendChart(suffix = '') {
                         cubicInterpolationMode: 'monotone'
                     }
                 ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
                 interaction: {
                     intersect: false,
                     mode: 'index'
                 },
-                plugins: {
-                    legend: {
+            plugins: {
+                legend: {
                         display: true,
                         position: 'top',
                         align: 'end',
@@ -1061,10 +1061,10 @@ function initializeLatencyTrendChart(suffix = '') {
                             return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + ' days';
                         }
                     }
-                    }
-                },
-                scales: {
-                    x: {
+                }
+            },
+            scales: {
+                x: {
                         grid: {
                             display: false,
                             drawBorder: false
@@ -1078,8 +1078,8 @@ function initializeLatencyTrendChart(suffix = '') {
                             },
                             padding: 10
                         }
-                    },
-                    y: {
+                },
+                y: {
                         beginAtZero: true,
                         grid: {
                             color: 'rgba(226, 232, 240, 0.5)',
@@ -1113,11 +1113,11 @@ function initializeLatencyTrendChart(suffix = '') {
                 animation: {
                     duration: 1000,
                     easing: 'easeOutQuart'
-                }
             }
-        });
-    }
-    
+        }
+    });
+}
+
 // Initialize Rejection Average Trend Chart
 function initializeRejectionAverageTrendChart(suffix = '') {
     const canvas = document.getElementById(`rejection-average-trend-chart${suffix}`);
@@ -1138,7 +1138,7 @@ function initializeRejectionAverageTrendChart(suffix = '') {
     
     window[chartKey] = new Chart(ctx, {
         type: 'line',
-            data: {
+        data: {
             labels: labels,
             datasets: [
                 {
@@ -1178,16 +1178,16 @@ function initializeRejectionAverageTrendChart(suffix = '') {
                     cubicInterpolationMode: 'monotone'
                 }
             ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
             interaction: {
                 intersect: false,
                 mode: 'index'
             },
-                plugins: {
-                    legend: {
+            plugins: {
+                legend: {
                     display: true,
                     position: 'top',
                     align: 'end',
@@ -1281,11 +1281,11 @@ function initializeRejectionAverageTrendChart(suffix = '') {
             animation: {
                 duration: 1000,
                 easing: 'easeOutQuart'
-                }
             }
-        });
-    }
-    
+        }
+    });
+}
+
 // View Toggle (Numbers/Charts)
 document.querySelectorAll('.view-toggle').forEach(toggle => {
     toggle.addEventListener('click', function() {
@@ -1342,6 +1342,17 @@ function easeOutCubic(t) {
 
 // Initialize Charts
 function initializeCharts(pageId) {
+    // Agents Trend Chart
+    const agentsChartSuffixes = {
+        'business-leader-page': '',
+        'engineering-page': '-eng',
+        'product-page': '-prod'
+    };
+    
+    if (agentsChartSuffixes[pageId] !== undefined) {
+        initializeAgentsTrendChart(agentsChartSuffixes[pageId]);
+    }
+    
     // Submissions Trend Chart
     const trendChartIds = {
         'business-leader-page': 'submissions-trend-chart',
@@ -1597,7 +1608,340 @@ function initializeTrendChartById(chartId, useRandomData = false) {
             }
         });
     }
-
+    
+function initializeAgentsTrendChart(suffix = '', useRandomData = false) {
+    const chartId = `agents-trend-chart${suffix}`;
+    const canvas = document.getElementById(chartId);
+    if (!canvas) return;
+    
+    // Destroy existing chart if it exists
+    if (window[chartId + '_chart']) {
+        window[chartId + '_chart'].destroy();
+    }
+    
+    const ctx = canvas.getContext('2d');
+    const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    
+    // Generate data for all 8 metrics
+    let agentsLiveData = [3200, 3280, 3350, 3400, 3420, 3410, 3420];
+    let agentsDeletedData = [140, 145, 150, 152, 156, 155, 156];
+    let agentsBlockedData = [18, 20, 22, 23, 23, 22, 23];
+    let submissionsData = [120, 190, 300, 250, 280, 200, 180];
+    let pendingData = [85, 90, 88, 89, 87, 89, 89];
+    let approvalsData = [100, 150, 250, 220, 240, 180, 160];
+    let rejectionsData = [10, 15, 20, 18, 15, 12, 10];
+    let latencyData = [2.5, 2.4, 2.3, 2.3, 2.2, 2.3, 2.3];
+    
+    if (useRandomData) {
+        agentsLiveData = labels.map(() => getRandomValue(2500, 4500, 3420));
+        agentsDeletedData = labels.map(() => getRandomValue(100, 250, 156));
+        agentsBlockedData = labels.map(() => getRandomValue(10, 50, 23));
+        submissionsData = labels.map(() => getRandomValue(80, 350, 200));
+        pendingData = labels.map(() => getRandomValue(50, 150, 89));
+        approvalsData = labels.map(() => getRandomValue(70, 300, 180));
+        rejectionsData = labels.map(() => getRandomValue(5, 25, 15));
+        latencyData = labels.map(() => parseFloat((1.5 + Math.random() * 1.5).toFixed(1)));
+    }
+    
+    window[chartId + '_chart'] = new Chart(ctx, {
+            type: 'line',
+            data: {
+            labels: labels,
+                datasets: [
+                    {
+                    label: 'Agents Live',
+                    data: agentsLiveData,
+                    borderColor: '#22c55e',
+                        backgroundColor: (context) => {
+                            const ctx = context.chart.ctx;
+                            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, 'rgba(34, 197, 94, 0.25)');
+                        gradient.addColorStop(0.5, 'rgba(34, 197, 94, 0.1)');
+                        gradient.addColorStop(1, 'rgba(34, 197, 94, 0)');
+                            return gradient;
+                        },
+                        borderWidth: 3,
+                        tension: 0.5,
+                        fill: true,
+                    pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBorderWidth: 3,
+                        pointHoverBackgroundColor: '#ffffff',
+                    pointHoverBorderColor: '#22c55e',
+                    pointBackgroundColor: '#22c55e',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone'
+                    },
+                    {
+                    label: 'Agents Deleted',
+                    data: agentsDeletedData,
+                    borderColor: '#f59e0b',
+                        backgroundColor: (context) => {
+                            const ctx = context.chart.ctx;
+                            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, 'rgba(245, 158, 11, 0.25)');
+                        gradient.addColorStop(0.5, 'rgba(245, 158, 11, 0.1)');
+                        gradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                            return gradient;
+                        },
+                        borderWidth: 3,
+                        tension: 0.5,
+                        fill: true,
+                    pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBorderWidth: 3,
+                        pointHoverBackgroundColor: '#ffffff',
+                    pointHoverBorderColor: '#f59e0b',
+                    pointBackgroundColor: '#f59e0b',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone'
+                    },
+                    {
+                    label: 'Agents Blocked',
+                    data: agentsBlockedData,
+                        borderColor: '#ef4444',
+                        backgroundColor: (context) => {
+                            const ctx = context.chart.ctx;
+                            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                            gradient.addColorStop(0, 'rgba(239, 68, 68, 0.25)');
+                            gradient.addColorStop(0.5, 'rgba(239, 68, 68, 0.1)');
+                            gradient.addColorStop(1, 'rgba(239, 68, 68, 0)');
+                            return gradient;
+                        },
+                        borderWidth: 3,
+                        tension: 0.5,
+                        fill: true,
+                    pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBorderWidth: 3,
+                        pointHoverBackgroundColor: '#ffffff',
+                        pointHoverBorderColor: '#ef4444',
+                        pointBackgroundColor: '#ef4444',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone'
+                    },
+                    {
+                        label: 'Agent Submissions',
+                        data: submissionsData,
+                        borderColor: '#0ea5e9',
+                        borderWidth: 2,
+                        tension: 0.5,
+                        fill: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBorderWidth: 3,
+                        pointHoverBackgroundColor: '#ffffff',
+                        pointHoverBorderColor: '#0ea5e9',
+                        pointBackgroundColor: '#0ea5e9',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone',
+                        borderDash: [5, 5]
+                    },
+                    {
+                        label: 'Pending for Review',
+                        data: pendingData,
+                        borderColor: '#6366f1',
+                        borderWidth: 2,
+                        tension: 0.5,
+                        fill: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBorderWidth: 3,
+                        pointHoverBackgroundColor: '#ffffff',
+                        pointHoverBorderColor: '#6366f1',
+                        pointBackgroundColor: '#6366f1',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone',
+                        borderDash: [5, 5]
+                    },
+                    {
+                        label: 'Approvals',
+                        data: approvalsData,
+                        borderColor: '#10b981',
+                        borderWidth: 2,
+                        tension: 0.5,
+                        fill: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBorderWidth: 3,
+                        pointHoverBackgroundColor: '#ffffff',
+                        pointHoverBorderColor: '#10b981',
+                        pointBackgroundColor: '#10b981',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone',
+                        borderDash: [5, 5]
+                    },
+                    {
+                        label: 'Rejections',
+                        data: rejectionsData,
+                        borderColor: '#f97316',
+                        borderWidth: 2,
+                        tension: 0.5,
+                        fill: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBorderWidth: 3,
+                        pointHoverBackgroundColor: '#ffffff',
+                        pointHoverBorderColor: '#f97316',
+                        pointBackgroundColor: '#f97316',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone',
+                        borderDash: [5, 5]
+                    },
+                    {
+                        label: 'Submission to Approval Latency',
+                        data: latencyData,
+                        borderColor: '#8b5cf6',
+                        borderWidth: 2,
+                        tension: 0.5,
+                        fill: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBorderWidth: 3,
+                        pointHoverBackgroundColor: '#ffffff',
+                        pointHoverBorderColor: '#8b5cf6',
+                        pointBackgroundColor: '#8b5cf6',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone',
+                        borderDash: [5, 5],
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'end',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: {
+                                size: 12,
+                                weight: '500',
+                                family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                            },
+                            color: '#64748b',
+                            boxWidth: 8,
+                            boxHeight: 8
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                        padding: 12,
+                        titleFont: {
+                            size: 13,
+                            weight: '600',
+                            family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                        },
+                        bodyFont: {
+                            size: 12,
+                            weight: '500',
+                            family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                        },
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: true,
+                        boxPadding: 6,
+                        titleColor: '#ffffff',
+                        bodyColor: '#e2e8f0',
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.parsed.y;
+                                if (context.dataset.label === 'Submission to Approval Latency') {
+                                    return context.dataset.label + ': ' + value.toFixed(1) + ' days';
+                                }
+                                return context.dataset.label + ': ' + value.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#94a3b8',
+                            font: {
+                                size: 11,
+                                weight: '500',
+                                family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                            },
+                            padding: 10
+                        }
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(226, 232, 240, 0.5)',
+                            drawBorder: false,
+                            lineWidth: 1
+                        },
+                        ticks: {
+                            color: '#94a3b8',
+                            font: {
+                                size: 11,
+                                weight: '500',
+                                family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                            },
+                            padding: 10,
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        beginAtZero: true,
+                        grid: {
+                            drawOnChartArea: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#8b5cf6',
+                            font: {
+                                size: 11,
+                                weight: '500',
+                                family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                            },
+                            padding: 10,
+                            callback: function(value) {
+                                return value.toFixed(1) + ' days';
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutQuart'
+                }
+            }
+        });
+    }
+    
 function initializeAPITrendChart(chartId) {
     const canvas = document.getElementById(chartId);
     if (!canvas) return;
@@ -1743,17 +2087,17 @@ function sendChatbotMessage() {
     // Handle first query with detailed explanation
     if (isFirstQuery) {
         isFirstQuery = false;
-        setTimeout(() => {
-            const botMessage = document.createElement('div');
-            botMessage.className = 'chatbot-message bot';
+    setTimeout(() => {
+        const botMessage = document.createElement('div');
+        botMessage.className = 'chatbot-message bot';
             botMessage.innerHTML = `<div class="message-content">${getAgentIntroduction()}</div>`;
-            messagesContainer.appendChild(botMessage);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            
+        messagesContainer.appendChild(botMessage);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
             // Replace input with "Coming soon" message
             replaceInputWithComingSoon();
         }, 500);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
         return;
     }
     
@@ -1812,13 +2156,13 @@ function replaceInputWithComingSoon() {
 
 // Chatbot Enter Key Handler
 function attachEnterKeyHandler() {
-    const chatbotInput = document.getElementById('chatbot-input-field');
-    if (chatbotInput) {
-        chatbotInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendChatbotMessage();
-            }
-        });
+const chatbotInput = document.getElementById('chatbot-input-field');
+if (chatbotInput) {
+    chatbotInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendChatbotMessage();
+        }
+    });
     }
 }
 
@@ -1869,7 +2213,10 @@ const DEFAULT_METRICS = {
     pending: 89,
     approvals: 1089,
     rejections: 69,
-    latency: 2.3
+    latency: 2.3,
+    agentsLive: 3420,
+    agentsDeleted: 156,
+    agentsBlocked: 23
 };
 
 const DEFAULT_REJECTION_REASONS = [
@@ -1916,13 +2263,28 @@ function restoreDefaultAgentMetrics(suffix = '') {
     
     // Update metric values
     const metricElements = {
-        submissions: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(1) .metric-value`),
-        pending: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(2) .metric-value`),
-        approvals: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(3) .metric-value`),
-        rejections: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(4) .metric-value`),
-        latency: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(5) .metric-value`)
+        agentsLive: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(1) .metric-value`),
+        agentsDeleted: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(2) .metric-value`),
+        agentsBlocked: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(3) .metric-value`),
+        submissions: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(4) .metric-value`),
+        pending: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(5) .metric-value`),
+        approvals: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(6) .metric-value`),
+        rejections: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(7) .metric-value`),
+        latency: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(8) .metric-value`)
     };
     
+    if (metricElements.agentsLive) {
+        metricElements.agentsLive.dataset.value = metrics.agentsLive;
+        metricElements.agentsLive.textContent = metrics.agentsLive.toLocaleString();
+    }
+    if (metricElements.agentsDeleted) {
+        metricElements.agentsDeleted.dataset.value = metrics.agentsDeleted;
+        metricElements.agentsDeleted.textContent = metrics.agentsDeleted.toLocaleString();
+    }
+    if (metricElements.agentsBlocked) {
+        metricElements.agentsBlocked.dataset.value = metrics.agentsBlocked;
+        metricElements.agentsBlocked.textContent = metrics.agentsBlocked.toLocaleString();
+    }
     if (metricElements.submissions) {
         metricElements.submissions.dataset.value = metrics.submissions;
         metricElements.submissions.textContent = metrics.submissions.toLocaleString();
@@ -1943,6 +2305,9 @@ function restoreDefaultAgentMetrics(suffix = '') {
         metricElements.latency.dataset.value = metrics.latency;
         metricElements.latency.textContent = metrics.latency;
     }
+    
+    // Restore default agents trend chart
+    initializeAgentsTrendChart(suffix, false);
     
     // Restore default chart
     const chartId = suffix === '' ? 'submissions-trend-chart' : 
@@ -1972,18 +2337,36 @@ function updateAgentPublishingMetrics(suffix = '', filterType = 'time-range') {
         rejections: getRandomValue(30, 120, DEFAULT_METRICS.rejections, canExceedBase),
         latency: canExceedBase 
             ? (DEFAULT_METRICS.latency + (Math.random() * 0.6 - 0.3)).toFixed(1)
-            : Math.max(0.1, (DEFAULT_METRICS.latency - Math.random() * 0.3)).toFixed(1)
+            : Math.max(0.1, (DEFAULT_METRICS.latency - Math.random() * 0.3)).toFixed(1),
+        agentsLive: getRandomValue(2500, 4500, DEFAULT_METRICS.agentsLive, canExceedBase),
+        agentsDeleted: getRandomValue(100, 250, DEFAULT_METRICS.agentsDeleted, canExceedBase),
+        agentsBlocked: getRandomValue(10, 50, DEFAULT_METRICS.agentsBlocked, canExceedBase)
     };
     
     // Update metric values
     const metricElements = {
-        submissions: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(1) .metric-value`),
-        pending: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(2) .metric-value`),
-        approvals: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(3) .metric-value`),
-        rejections: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(4) .metric-value`),
-        latency: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(5) .metric-value`)
+        agentsLive: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(1) .metric-value`),
+        agentsDeleted: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(2) .metric-value`),
+        agentsBlocked: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(3) .metric-value`),
+        submissions: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(4) .metric-value`),
+        pending: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(5) .metric-value`),
+        approvals: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(6) .metric-value`),
+        rejections: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(7) .metric-value`),
+        latency: document.querySelector(`#submissions-numbers${suffix} .metric-card:nth-child(8) .metric-value`)
     };
     
+    if (metricElements.agentsLive) {
+        metricElements.agentsLive.dataset.value = metrics.agentsLive;
+        metricElements.agentsLive.textContent = metrics.agentsLive.toLocaleString();
+    }
+    if (metricElements.agentsDeleted) {
+        metricElements.agentsDeleted.dataset.value = metrics.agentsDeleted;
+        metricElements.agentsDeleted.textContent = metrics.agentsDeleted.toLocaleString();
+    }
+    if (metricElements.agentsBlocked) {
+        metricElements.agentsBlocked.dataset.value = metrics.agentsBlocked;
+        metricElements.agentsBlocked.textContent = metrics.agentsBlocked.toLocaleString();
+    }
     if (metricElements.submissions) {
         metricElements.submissions.dataset.value = metrics.submissions;
         metricElements.submissions.textContent = metrics.submissions.toLocaleString();
@@ -2004,6 +2387,9 @@ function updateAgentPublishingMetrics(suffix = '', filterType = 'time-range') {
         metricElements.latency.dataset.value = metrics.latency;
         metricElements.latency.textContent = metrics.latency;
     }
+    
+    // Update agents trend chart with random data
+    initializeAgentsTrendChart(suffix, true);
     
     // Update trend chart with random data
     const chartId = suffix === '' ? 'submissions-trend-chart' : 
@@ -2470,7 +2856,7 @@ function setupFilters() {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     // Role Selection
-    document.querySelectorAll('.role-card').forEach(card => {
+    document.querySelectorAll('.dashboard-card').forEach(card => {
         card.addEventListener('click', function() {
             const role = this.dataset.role;
             if (role === 'business-leader') {
@@ -2487,6 +2873,63 @@ document.addEventListener('DOMContentLoaded', function() {
     animateMetrics();
     // Setup filter listeners
     setupFilters();
+    
+    // Overview Card Toggles
+    function setupOverviewToggle(toggleId, contentId) {
+        const toggle = document.getElementById(toggleId);
+        const content = document.getElementById(contentId);
+        
+        if (toggle && content) {
+            // Store natural height by temporarily expanding
+            let naturalHeight = 0;
+            const tempCollapsed = content.classList.contains('collapsed');
+            if (tempCollapsed) {
+                content.classList.remove('collapsed');
+                content.style.maxHeight = 'none';
+                naturalHeight = content.scrollHeight;
+                content.style.maxHeight = '0px';
+                content.classList.add('collapsed');
+            } else {
+                content.style.maxHeight = 'none';
+                naturalHeight = content.scrollHeight;
+            }
+            
+            toggle.addEventListener('click', function() {
+                const isCollapsed = content.classList.contains('collapsed');
+                if (isCollapsed) {
+                    // Expand
+                    content.style.maxHeight = naturalHeight + 'px';
+                    content.classList.remove('collapsed');
+                    this.classList.remove('collapsed');
+                    
+                    // After transition, allow natural sizing
+                    setTimeout(() => {
+                        if (!content.classList.contains('collapsed')) {
+                            content.style.maxHeight = 'none';
+                            // Re-measure in case content changed
+                            naturalHeight = content.scrollHeight;
+                        }
+                    }, 500);
+                } else {
+                    // Collapse
+                    const currentHeight = content.scrollHeight;
+                    content.style.maxHeight = currentHeight + 'px';
+                    // Force reflow
+                    content.offsetHeight;
+                    content.style.maxHeight = '0px';
+                    content.classList.add('collapsed');
+                    this.classList.add('collapsed');
+                }
+            });
+            
+            // Set header to collapsed state by default
+            toggle.classList.add('collapsed');
+        }
+    }
+    
+    // Setup toggles for both overview cards
+    setupOverviewToggle('publishing-process-toggle', 'publishing-process-content');
+    setupOverviewToggle('platform-production-toggle', 'platform-production-content');
     
     // Initialize product view detailed summary (open by default)
     const productDetailedSummary = document.getElementById('detailed-summary-content-prod');

@@ -138,8 +138,8 @@ body {
 
 .landing-header {
     text-align: center;
-    margin-bottom: 3rem;
-    padding: 2.5rem 0 2rem;
+    margin-bottom: 2.5rem;
+    padding: 2rem 0 1.5rem;
     animation: fadeInDown 0.8s ease-out;
     position: relative;
     z-index: 1;
@@ -206,8 +206,16 @@ body {
 .decoration-dot:nth-child(2) { animation-delay: 0.3s; }
 .decoration-dot:nth-child(3) { animation-delay: 0.6s; }
 
-.role-selection {
-    margin-bottom: 2rem;
+/* Landing Page Sections */
+.landing-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.landing-section {
     position: relative;
     z-index: 1;
 }
@@ -230,26 +238,124 @@ body {
     animation: bounce 2s ease-in-out infinite;
 }
 
-.role-cards {
+/* Dashboard Cards */
+.dashboard-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.75rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
-.role-card {
+.dashboard-card {
     background: var(--bg-primary);
     border-radius: var(--radius-xl);
-    padding: 2.5rem 2rem;
-    text-align: center;
+    padding: 1.5rem;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     box-shadow: var(--shadow-lg);
-    border: 2px solid var(--border);
+    border: 1px solid var(--border);
     position: relative;
     overflow: hidden;
     animation: fadeInUp 0.6s ease-out both;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+.dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+.dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+.dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary);
+}
+
+.dashboard-card:hover::before {
+    transform: scaleX(1);
+}
+
+.dashboard-card:hover .dashboard-card-arrow {
+    transform: translateX(4px);
+    opacity: 1;
+}
+
+.dashboard-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.dashboard-icon {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.dashboard-card h3 {
+    font-size: 1.25rem;
+    margin: 0;
+    color: var(--text-primary);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.dashboard-card p {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    margin: 0 0 0.75rem 0;
+    flex: 1;
+}
+
+.dashboard-card-arrow {
+    font-size: 1.25rem;
+    color: var(--primary);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.3s ease;
+    align-self: flex-end;
+    font-weight: bold;
+}
+
+/* Overview Cards */
+.overview-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.overview-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease-out both;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+.overview-card:nth-child(1) { animation-delay: 0.1s; }
+.overview-card:nth-child(2) { animation-delay: 0.2s; }
 
 .role-card-glow {
     position: absolute;
@@ -380,21 +486,69 @@ body {
     font-weight: bold;
 }
 
-/* Publishing Process Section */
-.publishing-process-section {
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 1;
+.overview-card-header {
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    user-select: none;
+    flex: 1;
+    min-height: 120px;
+    border: none;
 }
 
-.publishing-process-content {
-    background: var(--bg-primary);
-    border-radius: var(--radius-xl);
-    padding: 2.5rem;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border);
-    animation: fadeInUp 0.6s ease-out 0.4s both;
+.overview-card-header:hover {
+    background: var(--bg-secondary);
+}
+
+.overview-card-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.overview-icon {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.overview-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.overview-card-header .toggle-icon {
+    font-size: 1.25rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.overview-card-header.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+.overview-card-content {
+    padding: 1.5rem;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-top: 1px solid var(--border-light);
+}
+
+.overview-card-content.collapsed {
+    max-height: 0;
+    padding: 0 1.5rem;
+    border: none;
+    overflow: hidden;
 }
 
 .publishing-svg-container {
@@ -406,6 +560,7 @@ body {
     padding: 2rem;
     border: 1px solid var(--border-light);
     transition: all 0.3s ease;
+    overflow: visible;
 }
 
 .publishing-svg-container:hover {
@@ -419,10 +574,91 @@ body {
     height: auto;
     display: block;
     border-radius: var(--radius-md);
+    max-width: 100%;
+    object-fit: contain;
 }
 
 .publishing-svg-container img {
     max-width: 100%;
+    height: auto;
+}
+
+
+.production-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.production-step {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--primary);
+    transition: all 0.3s ease;
+    animation: slideInLeft 0.5s ease-out both;
+}
+
+.production-step:hover {
+    transform: translateX(8px);
+    box-shadow: var(--shadow-md);
+    background: var(--bg-primary);
+}
+
+.production-step:nth-child(1) { animation-delay: 0.1s; }
+.production-step:nth-child(2) { animation-delay: 0.2s; }
+.production-step:nth-child(3) { animation-delay: 0.3s; }
+
+.step-number-badge {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.125rem;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-md);
+}
+
+.step-details-content {
+    flex: 1;
+}
+
+.step-title {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.step-description {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+    font-size: 0.875rem;
+}
+
+.step-list {
+    margin-left: 1.5rem;
+    margin-top: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.step-list li {
+    margin-bottom: 0.75rem;
+}
+
+.step-list strong {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 /* Platform Explanation - Card Style */
@@ -892,6 +1128,14 @@ body {
     padding: 1rem;
     background: var(--bg-secondary);
     border-radius: var(--radius-md);
+}
+
+.chart-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
 }
 
 .api-trend-chart {
@@ -2763,6 +3007,12 @@ body {
     }
 }
 
+@media (max-width: 1024px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
@@ -2782,21 +3032,22 @@ body {
         font-size: 1.5rem;
     }
 
-    .role-cards {
+    .dashboard-cards {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.25rem;
     }
 
-    .role-card {
-        padding: 2.5rem 2rem;
-    }
-
-    .role-icon {
-        font-size: 4rem;
+    .overview-cards {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
 
     .tagline {
         font-size: 1.25rem;
+    }
+
+    .landing-sections {
+        gap: 2rem;
     }
 
     .publishing-process-content {
@@ -2809,6 +3060,26 @@ body {
 
     .publishing-svg-container svg {
         min-height: 300px;
+    }
+
+    .platform-production-content {
+        padding: 1.5rem;
+    }
+
+    .production-step {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .step-number-badge {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+
+    .step-title {
+        font-size: 1.25rem;
     }
 
     .dashboard-container {
