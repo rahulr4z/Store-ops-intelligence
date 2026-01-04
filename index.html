@@ -1540,28 +1540,40 @@
                                 <div class="alert-name">Automated Client Churn Risk Alert</div>
                                 <div class="alert-status active">Active</div>
                             </div>
-                            <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                            <div class="alert-actions">
+                                <button class="btn-view" onclick="viewAlert('churn-risk')">View</button>
+                                <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                            </div>
                         </div>
                         <div class="alert-item">
                             <div class="alert-info">
                                 <div class="alert-name">System Outage Alert</div>
                                 <div class="alert-status active">Active</div>
                             </div>
-                            <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                            <div class="alert-actions">
+                                <button class="btn-view" onclick="viewAlert('system-outage')">View</button>
+                                <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                            </div>
                         </div>
                         <div class="alert-item">
                             <div class="alert-info">
                                 <div class="alert-name">Daily Summary Alert</div>
                                 <div class="alert-status active">Active</div>
                             </div>
-                            <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                            <div class="alert-actions">
+                                <button class="btn-view" onclick="viewAlert('daily-summary')">View</button>
+                                <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                            </div>
                         </div>
                         <div class="alert-item">
                             <div class="alert-info">
                                 <div class="alert-name">Client Publishing Performance Shortfall Report</div>
                                 <div class="alert-status active">Active</div>
                             </div>
-                            <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                            <div class="alert-actions">
+                                <button class="btn-view" onclick="viewAlert('publishing-shortfall')">View</button>
+                                <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2352,6 +2364,19 @@
                     <input type="text" placeholder="Enter a ticket ID" id="chatbot-input-field">
                     <button onclick="sendChatbotMessage()">Send</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Explanation Modal -->
+    <div id="alert-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="alert-modal-title">Alert Details</h2>
+                <button class="modal-close" onclick="closeAlertModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="alert-modal-content"></div>
             </div>
         </div>
     </div>

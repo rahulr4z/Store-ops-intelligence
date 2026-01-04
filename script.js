@@ -1386,6 +1386,16 @@ function initializeCharts(pageId) {
         initializeRejectionChart(rejectionChartIds[pageId]);
     }
     
+    // Initialize Churn Risk
+    const churnSuffixes = {
+        'business-leader-page': '',
+        'product-page': '-prod'
+    };
+    
+    if (churnSuffixes[pageId] !== undefined) {
+        updateChurnRisk(churnSuffixes[pageId]);
+    }
+    
     // Initialize detailed summary charts for product view (open by default)
     if (pageId === 'product-page') {
         const productDetailedSummary = document.getElementById('detailed-summary-content-prod');
@@ -2198,6 +2208,53 @@ function startAlert(button) {
     button.onclick = function() { stopAlert(this); };
 }
 
+// Alert Descriptions
+const alertDescriptions = {
+    'churn-risk': {
+        title: 'Automated Client Churn Risk Alert',
+        description: 'Clients are grouped into cohorts based on nature of business and developer headcount. For each cohort, a baseline is calculated as the average performance of all clients. Health threshold is determined by comparing performance metrics (submissions, approval, rejection, latency) against the cohort baseline: Good (>10% above baseline), Neutral (±10% of baseline), Negative (<10% below baseline). When performance is negative, an email alert is sent with the client name and an overview of churn risk vitals.'
+    },
+    'system-outage': {
+        title: 'System Outage Alert',
+        description: 'Every 10 minutes a script runs to check if the system is performing on par with the defined threshold. Email alerts can go only 3 times a day.'
+    },
+    'daily-summary': {
+        title: 'Daily Summary Alert',
+        description: 'Shared at 9:00 AM everyday and provides a pdf document of the detailed summary metrics'
+    },
+    'publishing-shortfall': {
+        title: 'Client Publishing Performance Shortfall Report',
+        description: 'Everyday at 9:00 this is shared to capture which clients are performing poor from the baseline define'
+    }
+};
+
+// View Alert Details
+function viewAlert(alertId) {
+    const alert = alertDescriptions[alertId];
+    if (!alert) return;
+    
+    const modal = document.getElementById('alert-modal');
+    const title = document.getElementById('alert-modal-title');
+    const content = document.getElementById('alert-modal-content');
+    
+    title.textContent = alert.title;
+    content.innerHTML = `
+        <div class="alert-explanation">
+            <div class="explanation-content">
+                <p>${alert.description}</p>
+            </div>
+        </div>
+    `;
+    
+    modal.classList.add('active');
+}
+
+// Close Alert Modal
+function closeAlertModal() {
+    const modal = document.getElementById('alert-modal');
+    modal.classList.remove('active');
+}
+
 // Close modal on outside click
 document.querySelectorAll('.modal').forEach(modal => {
     modal.addEventListener('click', function(e) {
@@ -2588,6 +2645,153 @@ function updateRejectionReasons(suffix = '', filterType = 'time-range') {
 }
 
 // Setup filter event listeners
+
+// Churn Risk Data Structure
+// Cohorts are defined based on nature of business and developer headcount
+const churnRiskData = {
+    cohorts: [
+        {
+            id: 'startup-small',
+            businessType: 'Startup',
+            developerRange: '<10 Developers',
+            clients: [
+                { name: 'TechStart Inc.', submissions: 38, approval: 74, rejection: 16, latency: 3.1 },
+                { name: 'CloudVentures', submissions: 42, approval: 80, rejection: 12, latency: 2.8 },
+                { name: 'AppBuilder Co.', submissions: 50, approval: 82, rejection: 10, latency: 2.5 },
+                { name: 'DevTools Ltd.', submissions: 45, approval: 78, rejection: 14, latency: 2.9 }
+            ]
+        },
+        {
+            id: 'startup-mid',
+            businessType: 'Mid-sized Startup',
+            developerRange: '10-50 Developers',
+            clients: [
+                { name: 'DataWorks LLC', submissions: 65, approval: 78, rejection: 12, latency: 2.6 },
+                { name: 'FinTech Solutions', submissions: 85, approval: 88, rejection: 6, latency: 1.8 },
+                { name: 'HealthTech Innovations', submissions: 92, approval: 85, rejection: 8, latency: 2.1 },
+                { name: 'EduPlatform Inc.', submissions: 75, approval: 82, rejection: 10, latency: 2.3 }
+            ]
+        },
+        {
+            id: 'startup-established',
+            businessType: 'Established Startup',
+            developerRange: '50-100 Developers',
+            clients: [
+                { name: 'Acme Corporation', submissions: 95, approval: 72, rejection: 15, latency: 3.4 },
+                { name: 'EnterpriseSoft', submissions: 125, approval: 85, rejection: 8, latency: 2.1 },
+                { name: 'ScaleUp Systems', submissions: 140, approval: 88, rejection: 6, latency: 1.9 },
+                { name: 'GrowthTech Corp', submissions: 115, approval: 80, rejection: 10, latency: 2.4 }
+            ]
+        },
+        {
+            id: 'mnc',
+            businessType: 'MNC',
+            developerRange: '>100 Developers',
+            clients: [
+                { name: 'GlobalTech Industries', submissions: 180, approval: 90, rejection: 5, latency: 1.6 },
+                { name: 'MegaCorp Solutions', submissions: 200, approval: 88, rejection: 7, latency: 1.8 },
+                { name: 'Fortune500 Systems', submissions: 165, approval: 85, rejection: 8, latency: 2.0 },
+                { name: 'Enterprise Global', submissions: 190, approval: 92, rejection: 4, latency: 1.5 }
+            ]
+        }
+    ]
+};
+
+// Calculate baseline for each cohort (average performance of all clients in that cohort)
+function calculateCohortBaseline(cohort) {
+    const clientCount = cohort.clients.length;
+    if (clientCount === 0) return null;
+    
+    const totals = cohort.clients.reduce((acc, client) => ({
+        submissions: acc.submissions + client.submissions,
+        approval: acc.approval + client.approval,
+        rejection: acc.rejection + client.rejection,
+        latency: acc.latency + client.latency
+    }), { submissions: 0, approval: 0, rejection: 0, latency: 0 });
+    
+    return {
+        submissions: Math.round(totals.submissions / clientCount),
+        approval: parseFloat((totals.approval / clientCount).toFixed(1)),
+        rejection: parseFloat((totals.rejection / clientCount).toFixed(1)),
+        latency: parseFloat((totals.latency / clientCount).toFixed(1))
+    };
+}
+
+// Calculate health threshold for a client
+// Good: >10% better than baseline, Neutral: ±10% of baseline, Negative: <10% worse than baseline
+// For submissions/approval: higher is better (Good if >110%, Negative if <90%)
+// For rejection/latency: lower is better (Good if <90%, Negative if >110%)
+function calculateHealthStatus(client, baseline) {
+    const submissionRatio = client.submissions / baseline.submissions;
+    const approvalRatio = client.approval / baseline.approval;
+    const rejectionRatio = client.rejection / baseline.rejection;
+    const latencyRatio = client.latency / baseline.latency;
+    
+    // Determine status for each metric
+    const getMetricStatus = (ratio, isHigherBetter) => {
+        if (isHigherBetter) {
+            // For submissions and approval (higher is better)
+            if (ratio > 1.1) return 'good';
+            if (ratio < 0.9) return 'negative';
+            return 'neutral';
+        } else {
+            // For rejection and latency (lower is better)
+            if (ratio < 0.9) return 'good';
+            if (ratio > 1.1) return 'negative';
+            return 'neutral';
+        }
+    };
+    
+    const submissionStatus = getMetricStatus(submissionRatio, true);
+    const approvalStatus = getMetricStatus(approvalRatio, true);
+    const rejectionStatus = getMetricStatus(rejectionRatio, false);
+    const latencyStatus = getMetricStatus(latencyRatio, false);
+    
+    // Overall status: Negative if ANY metric is negative, Good if ALL are good, Neutral otherwise
+    let overallStatus = 'neutral';
+    if (submissionStatus === 'negative' || approvalStatus === 'negative' || 
+        rejectionStatus === 'negative' || latencyStatus === 'negative') {
+        overallStatus = 'negative';
+    } else if (submissionStatus === 'good' && approvalStatus === 'good' && 
+               rejectionStatus === 'good' && latencyStatus === 'good') {
+        overallStatus = 'good';
+    }
+    
+    return {
+        status: overallStatus,
+        metrics: {
+            submissions: { value: client.submissions, baseline: baseline.submissions, ratio: submissionRatio, status: submissionStatus },
+            approval: { value: client.approval, baseline: baseline.approval, ratio: approvalRatio, status: approvalStatus },
+            rejection: { value: client.rejection, baseline: baseline.rejection, ratio: rejectionRatio, status: rejectionStatus },
+            latency: { value: client.latency, baseline: baseline.latency, ratio: latencyRatio, status: latencyStatus }
+        }
+    };
+}
+
+// Generate email content for negative performance clients
+function generateChurnAlertEmail(client, cohort, healthStatus) {
+    const baseline = calculateCohortBaseline(cohort);
+    const metrics = healthStatus.metrics;
+    
+    return {
+        subject: `Churn Risk Alert: ${client.name}`,
+        body: `
+Churn Risk Alert
+
+Client: ${client.name}
+Cohort: ${cohort.businessType} | ${cohort.developerRange}
+
+Performance Overview:
+- Submissions: ${client.submissions} (Baseline: ${baseline.submissions}) - ${((metrics.submissions.ratio - 1) * 100).toFixed(1)}% vs baseline
+- Approval Rate: ${client.approval}% (Baseline: ${baseline.approval}%) - ${((metrics.approval.ratio - 1) * 100).toFixed(1)}% vs baseline
+- Rejection Rate: ${client.rejection}% (Baseline: ${baseline.rejection}%) - ${((metrics.rejection.ratio - 1) * 100).toFixed(1)}% vs baseline
+- Average Latency: ${client.latency} days (Baseline: ${baseline.latency} days) - ${((metrics.latency.ratio - 1) * 100).toFixed(1)}% vs baseline
+
+This client is performing below the cohort baseline threshold and may be at risk of churn.
+        `.trim()
+    };
+}
+
 // Update Churn Risk based on time range filter
 function updateChurnRisk(suffix = '') {
     const timeRangeFilter = document.getElementById(`churn-time-range-filter${suffix}`);
@@ -2599,64 +2803,111 @@ function updateChurnRisk(suffix = '') {
     const widget = timeRangeFilter.closest('.churn-risk-widget');
     if (!widget) return;
     
+    const churnList = widget.querySelector('.churn-list');
+    if (!churnList) return;
+    
     // Generate multipliers based on time range
     const weekMultiplier = timeRange === '1w' ? 1.0 : timeRange === '2w' ? 1.9 : timeRange === '1m' ? 4.2 : 12.5;
     
-    // Update all churn items
-    const churnItems = widget.querySelectorAll('.churn-item');
-    churnItems.forEach(item => {
-        // Update baseline metrics with randomized values based on time range
-        const baselineElement = item.querySelector('.churn-baseline');
-        if (baselineElement) {
-            const currentText = baselineElement.textContent;
-            // Extract numbers from baseline text and update them
-            const match = currentText.match(/Baseline: (\d+) submissions, ([\d.]+)% approval, ([\d.]+)% rejection, ([\d.]+) days latency/);
-            if (match) {
-                const submissions = Math.round(parseInt(match[1]) * weekMultiplier);
-                const approval = parseFloat(match[2]);
-                const rejection = parseFloat(match[3]);
-                const latency = parseFloat(match[4]);
-                
-                // Slight randomization for variety
-                const newApproval = Math.max(70, Math.min(95, approval + (Math.random() - 0.5) * 2));
-                const newRejection = Math.max(3, Math.min(15, rejection + (Math.random() - 0.5) * 1));
-                const newLatency = Math.max(1.5, Math.min(3.5, latency + (Math.random() - 0.5) * 0.3));
-                
-                baselineElement.textContent = `Baseline: ${submissions} submissions, ${newApproval.toFixed(0)}% approval, ${newRejection.toFixed(1)}% rejection, ${newLatency.toFixed(1)} days latency`;
-            }
-        }
+    // Clear existing items
+    churnList.innerHTML = '';
+    
+    // Process each cohort and find clients with negative performance
+    const negativeClients = [];
+    
+    churnRiskData.cohorts.forEach(cohort => {
+        const baseline = calculateCohortBaseline(cohort);
+        if (!baseline) return;
         
-        // Update vitals metrics
-        const vitals = item.querySelectorAll('.churn-vital');
-        vitals.forEach(vital => {
-            const valueElement = vital.querySelector('.churn-vital-value');
-            const changeElement = vital.querySelector('.churn-vital-change');
+        cohort.clients.forEach(client => {
+            // Apply time range multiplier to client metrics
+            const adjustedClient = {
+                name: client.name,
+                submissions: Math.round(client.submissions * weekMultiplier),
+                approval: client.approval,
+                rejection: client.rejection,
+                latency: client.latency
+            };
             
-            if (valueElement) {
-                const currentValue = parseFloat(valueElement.textContent.replace(/[^\d.]/g, ''));
-                if (!isNaN(currentValue)) {
-                    // Randomize value slightly based on time range
-                    const multiplier = 0.9 + (Math.random() * 0.2);
-                    const newValue = currentValue * weekMultiplier * multiplier;
-                    
-                    if (valueElement.textContent.includes('%')) {
-                        valueElement.textContent = `${newValue.toFixed(1)}%`;
-                    } else if (valueElement.textContent.includes('days')) {
-                        valueElement.textContent = `${newValue.toFixed(1)} days`;
-                    } else {
-                        valueElement.textContent = Math.round(newValue).toLocaleString();
-                    }
-                }
-            }
+            // Adjust baseline for time range
+            const adjustedBaseline = {
+                submissions: Math.round(baseline.submissions * weekMultiplier),
+                approval: baseline.approval,
+                rejection: baseline.rejection,
+                latency: baseline.latency
+            };
             
-            if (changeElement) {
-                // Randomize change percentage
-                const changeValue = -15 + Math.random() * 30;
-                const changeText = changeValue >= 0 ? `+${changeValue.toFixed(1)}%` : `${changeValue.toFixed(1)}%`;
-                changeElement.textContent = changeText;
-                changeElement.className = 'churn-vital-change ' + (changeValue >= 0 ? 'positive' : 'negative');
+            const healthStatus = calculateHealthStatus(adjustedClient, adjustedBaseline);
+            
+            // Only include clients with negative performance
+            if (healthStatus.status === 'negative') {
+                negativeClients.push({
+                    client: adjustedClient,
+                    cohort: cohort,
+                    baseline: adjustedBaseline,
+                    healthStatus: healthStatus
+                });
             }
         });
+    });
+    
+    // If no negative clients, show a message
+    if (negativeClients.length === 0) {
+        churnList.innerHTML = `
+            <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">✅</div>
+                <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">No Churn Risk Detected</div>
+                <div style="font-size: 0.875rem;">All clients are performing within acceptable thresholds.</div>
+            </div>
+        `;
+        return;
+    }
+    
+    // Render negative clients
+    negativeClients.forEach(({ client, cohort, baseline, healthStatus }) => {
+        const metrics = healthStatus.metrics;
+        
+        const churnItem = document.createElement('div');
+        churnItem.className = 'churn-item expanded';
+        churnItem.innerHTML = `
+            <div class="churn-header">
+                <div class="churn-client-info">
+                    <div class="churn-client">${client.name}</div>
+                    <div class="churn-cohort">Cohort: ${cohort.businessType} | ${cohort.developerRange}</div>
+                </div>
+                <div class="churn-status">
+                    <div class="churn-risk negative">Negative</div>
+                    <div class="churn-baseline">Baseline: ${baseline.submissions} submissions, ${baseline.approval}% approval, ${baseline.rejection}% rejection, ${baseline.latency} days latency</div>
+                </div>
+            </div>
+            <div class="churn-vitals">
+                <div class="vital-metric">
+                    <div class="vital-label">Submissions</div>
+                    <div class="vital-value">${client.submissions}</div>
+                    <div class="vital-baseline">Baseline: ${baseline.submissions}</div>
+                    <div class="vital-change negative">${((metrics.submissions.ratio - 1) * 100).toFixed(1)}% vs baseline</div>
+                </div>
+                <div class="vital-metric">
+                    <div class="vital-label">Approval Rate</div>
+                    <div class="vital-value">${client.approval}%</div>
+                    <div class="vital-baseline">Baseline: ${baseline.approval}%</div>
+                    <div class="vital-change negative">${((metrics.approval.ratio - 1) * 100).toFixed(1)}% vs baseline</div>
+                </div>
+                <div class="vital-metric">
+                    <div class="vital-label">Rejection Rate</div>
+                    <div class="vital-value">${client.rejection}%</div>
+                    <div class="vital-baseline">Baseline: ${baseline.rejection}%</div>
+                    <div class="vital-change negative">${((metrics.rejection.ratio - 1) * 100).toFixed(1)}% vs baseline</div>
+                </div>
+                <div class="vital-metric">
+                    <div class="vital-label">Avg Latency</div>
+                    <div class="vital-value">${client.latency} days</div>
+                    <div class="vital-baseline">Baseline: ${baseline.latency} days</div>
+                    <div class="vital-change negative">${((metrics.latency.ratio - 1) * 100).toFixed(1)}% vs baseline</div>
+                </div>
+            </div>
+        `;
+        churnList.appendChild(churnItem);
     });
 }
 
