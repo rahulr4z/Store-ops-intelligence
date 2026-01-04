@@ -2238,11 +2238,19 @@ const alertDescriptions = {
 // View Alert Details
 function viewAlert(alertId) {
     const alert = alertDescriptions[alertId];
-    if (!alert) return;
+    if (!alert) {
+        console.warn('Alert not found:', alertId);
+        return;
+    }
     
     const modal = document.getElementById('alert-modal');
     const title = document.getElementById('alert-modal-title');
     const content = document.getElementById('alert-modal-content');
+    
+    if (!modal || !title || !content) {
+        console.error('Modal elements not found');
+        return;
+    }
     
     title.textContent = alert.title;
     content.innerHTML = `
@@ -2254,22 +2262,17 @@ function viewAlert(alertId) {
     `;
     
     modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
 
 // Close Alert Modal
 function closeAlertModal() {
     const modal = document.getElementById('alert-modal');
-    modal.classList.remove('active');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
 }
-
-// Close modal on outside click
-document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.classList.remove('active');
-        }
-    });
-});
 
 // Default Values
 const DEFAULT_METRICS = {
@@ -3216,6 +3219,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup toggles for both overview cards
     setupOverviewToggle('publishing-process-toggle', 'publishing-process-content');
     setupOverviewToggle('platform-production-toggle', 'platform-production-content');
+    
+    // Setup modal click handlers (close on outside click)
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        });
+    });
     
     // Initialize product view detailed summary (open by default)
     const productDetailedSummary = document.getElementById('detailed-summary-content-prod');
