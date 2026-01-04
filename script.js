@@ -2483,40 +2483,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Platform Explanation Toggle
-    const explanationToggle = document.getElementById('explanation-toggle');
-    const explanationContent = document.getElementById('explanation-content');
-    
-    if (explanationToggle && explanationContent) {
-        explanationToggle.addEventListener('click', function() {
-            const isCollapsed = explanationContent.classList.contains('collapsed');
-            if (isCollapsed) {
-                explanationContent.classList.remove('collapsed');
-                this.classList.remove('collapsed');
-            } else {
-                explanationContent.classList.add('collapsed');
-                this.classList.add('collapsed');
-            }
-        });
-    }
-    
-    // Publishing Process Toggle
-    const publishingToggle = document.getElementById('publishing-toggle');
-    const publishingContent = document.getElementById('publishing-content');
-    
-    if (publishingToggle && publishingContent) {
-        publishingToggle.addEventListener('click', function() {
-            const isCollapsed = publishingContent.classList.contains('collapsed');
-            if (isCollapsed) {
-                publishingContent.classList.remove('collapsed');
-                this.classList.remove('collapsed');
-            } else {
-                publishingContent.classList.add('collapsed');
-                this.classList.add('collapsed');
-            }
-        });
-    }
-    
     // Initialize landing page animations
     animateMetrics();
     // Setup filter listeners
