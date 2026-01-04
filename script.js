@@ -9,6 +9,13 @@ function showPage(pageId) {
     document.getElementById(pageId).classList.add('active');
     initializeCharts(pageId);
     animateMetrics();
+    
+    // Ensure churn risk is updated when page is shown
+    if (pageId === 'business-leader-page') {
+        setTimeout(() => updateChurnRisk(''), 100);
+    } else if (pageId === 'product-page') {
+        setTimeout(() => updateChurnRisk('-prod'), 100);
+    }
 }
 
 // Role Selection - will be set up in DOMContentLoaded
@@ -2793,18 +2800,34 @@ This client is performing below the cohort baseline threshold and may be at risk
 }
 
 // Update Churn Risk based on time range filter
-function updateChurnRisk(suffix = '') {
+function updateChurnRisk(suffix = '', retryCount = 0) {
+    // Retry mechanism for GitHub Pages timing issues (max 5 retries)
     const timeRangeFilter = document.getElementById(`churn-time-range-filter${suffix}`);
-    if (!timeRangeFilter) return;
+    if (!timeRangeFilter) {
+        if (retryCount < 5) {
+            setTimeout(() => updateChurnRisk(suffix, retryCount + 1), 200);
+        }
+        return;
+    }
     
     const timeRange = timeRangeFilter.value || '1w';
     
     // Find the churn risk widget
     const widget = timeRangeFilter.closest('.churn-risk-widget');
-    if (!widget) return;
+    if (!widget) {
+        if (retryCount < 5) {
+            setTimeout(() => updateChurnRisk(suffix, retryCount + 1), 200);
+        }
+        return;
+    }
     
     const churnList = widget.querySelector('.churn-list');
-    if (!churnList) return;
+    if (!churnList) {
+        if (retryCount < 5) {
+            setTimeout(() => updateChurnRisk(suffix, retryCount + 1), 200);
+        }
+        return;
+    }
     
     // Generate multipliers based on time range
     const weekMultiplier = timeRange === '1w' ? 1.0 : timeRange === '2w' ? 1.9 : timeRange === '1m' ? 4.2 : 12.5;
@@ -3124,6 +3147,18 @@ document.addEventListener('DOMContentLoaded', function() {
     animateMetrics();
     // Setup filter listeners
     setupFilters();
+    
+    // Initialize churn risk for business leader page (if visible)
+    setTimeout(() => {
+        const businessLeaderPage = document.getElementById('business-leader-page');
+        if (businessLeaderPage && businessLeaderPage.classList.contains('active')) {
+            updateChurnRisk('');
+        }
+        const productPage = document.getElementById('product-page');
+        if (productPage && productPage.classList.contains('active')) {
+            updateChurnRisk('-prod');
+        }
+    }, 500);
     
     // Overview Card Toggles
     function setupOverviewToggle(toggleId, contentId) {
