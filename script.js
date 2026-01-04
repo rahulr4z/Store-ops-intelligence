@@ -1709,6 +1709,13 @@ function openChatbot() {
     modal.classList.add('active');
     // Reset state when opening chatbot
     isFirstQuery = true;
+    // Restore input if it was replaced
+    const inputContainer = document.getElementById('chatbot-input-container');
+    if (inputContainer && inputContainer.querySelector('.coming-soon-message')) {
+        inputContainer.innerHTML = '<input type="text" placeholder="Enter a ticket ID" id="chatbot-input-field"><button onclick="sendChatbotMessage()">Send</button>';
+        // Reattach enter key handler
+        attachEnterKeyHandler();
+    }
 }
 
 function closeChatbot() {
@@ -1742,6 +1749,9 @@ function sendChatbotMessage() {
             botMessage.innerHTML = `<div class="message-content">${getAgentIntroduction()}</div>`;
             messagesContainer.appendChild(botMessage);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Replace input with "Coming soon" message
+            replaceInputWithComingSoon();
         }, 500);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
         return;
@@ -1793,15 +1803,27 @@ function getAgentIntroduction() {
     `;
 }
 
-// Chatbot Enter Key
-const chatbotInput = document.getElementById('chatbot-input-field');
-if (chatbotInput) {
-    chatbotInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            sendChatbotMessage();
-        }
-    });
+function replaceInputWithComingSoon() {
+    const inputContainer = document.getElementById('chatbot-input-container');
+    if (inputContainer) {
+        inputContainer.innerHTML = '<div class="coming-soon-message">Coming soon</div>';
+    }
 }
+
+// Chatbot Enter Key Handler
+function attachEnterKeyHandler() {
+    const chatbotInput = document.getElementById('chatbot-input-field');
+    if (chatbotInput) {
+        chatbotInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatbotMessage();
+            }
+        });
+    }
+}
+
+// Attach handler on page load
+attachEnterKeyHandler();
 
 // Stop Alert
 function stopAlert(button) {

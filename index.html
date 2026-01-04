@@ -13,29 +13,63 @@
 <body>
     <!-- Landing Page -->
     <div id="landing-page" class="page active">
+        <div class="landing-background">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
         <div class="container">
             <header class="landing-header">
-                <h1 class="logo">Store Operations Intelligence</h1>
+                <div class="logo-wrapper">
+                    <h1 class="logo">Store Operations Intelligence</h1>
+                    <div class="logo-accent"></div>
+                </div>
                 <p class="tagline">Empowering AI Agent Publishing with Intelligent Operations</p>
+                <div class="header-decoration">
+                    <span class="decoration-dot"></span>
+                    <span class="decoration-dot"></span>
+                    <span class="decoration-dot"></span>
+                </div>
             </header>
             
             <div class="role-selection">
-                <h2>Access Platform As</h2>
+                <h2 class="section-title-modern">
+                    <span class="title-icon">🚀</span>
+                    Choose Your Dashboard
+                </h2>
                 <div class="role-cards">
                     <div class="role-card" data-role="business-leader">
-                        <div class="role-icon">👔</div>
+                        <div class="role-card-glow"></div>
+                        <div class="role-icon-wrapper">
+                            <div class="role-icon">👔</div>
+                            <div class="icon-pulse"></div>
+                        </div>
                         <h3>Business Leader</h3>
                         <p>Strategic insights and operational metrics</p>
+                        <div class="role-card-arrow">→</div>
                     </div>
                     <div class="role-card" data-role="engineering">
-                        <div class="role-icon">⚙️</div>
+                        <div class="role-card-glow"></div>
+                        <div class="role-icon-wrapper">
+                            <div class="role-icon">⚙️</div>
+                            <div class="icon-pulse"></div>
+                        </div>
                         <h3>Engineering Team</h3>
                         <p>Technical monitoring and alerts</p>
+                        <div class="role-card-arrow">→</div>
                     </div>
                     <div class="role-card" data-role="product">
-                        <div class="role-icon">📊</div>
+                        <div class="role-card-glow"></div>
+                        <div class="role-icon-wrapper">
+                            <div class="role-icon">📊</div>
+                            <div class="icon-pulse"></div>
+                        </div>
                         <h3>Product Team</h3>
                         <p>Comprehensive analytics and metrics</p>
+                        <div class="role-card-arrow">→</div>
                     </div>
                 </div>
             </div>
@@ -2300,8 +2334,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="chatbot-input">
-                    <input type="text" placeholder="Type your question..." id="chatbot-input-field">
+                <div class="chatbot-input" id="chatbot-input-container">
+                    <input type="text" placeholder="Enter a ticket ID" id="chatbot-input-field">
                     <button onclick="sendChatbotMessage()">Send</button>
                 </div>
             </div>
