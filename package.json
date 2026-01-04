@@ -1,0 +1,20 @@
+{
+  "name": "store-operations-intelligence",
+  "version": "1.0.0",
+  "description": "Store Operations Intelligence - AI Agent Publishing Platform",
+  "scripts": {
+    "start": "http-server -p 8000 -o",
+    "dev": "http-server -p 8000 -o -c-1"
+  },
+  "keywords": [
+    "dashboard",
+    "operations",
+    "intelligence"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
+

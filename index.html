@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Operations Intelligence</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page" class="page active">
+        <div class="container">
+            <header class="landing-header">
+                <h1 class="logo">Store Operations Intelligence</h1>
+                <p class="tagline">Empowering AI Agent Publishing with Intelligent Operations</p>
+            </header>
+            
+            <div class="role-selection">
+                <h2>Access Platform As</h2>
+                <div class="role-cards">
+                    <div class="role-card" data-role="business-leader">
+                        <div class="role-icon">👔</div>
+                        <h3>Business Leader</h3>
+                        <p>Strategic insights and operational metrics</p>
+                    </div>
+                    <div class="role-card" data-role="engineering">
+                        <div class="role-icon">⚙️</div>
+                        <h3>Engineering Team</h3>
+                        <p>Technical monitoring and alerts</p>
+                    </div>
+                    <div class="role-card" data-role="product">
+                        <div class="role-icon">📊</div>
+                        <h3>Product Team</h3>
+                        <p>Comprehensive analytics and metrics</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="platform-explanation">
+                <div class="explanation-header" id="explanation-toggle">
+                    <h3>How the Platform Works</h3>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="explanation-content" id="explanation-content">
+                    <div class="explanation-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Data Foundation</h4>
+                            <p>Data is captured from deployment instances, user actions, API logs and support tickets</p>
+                        </div>
+                    </div>
+                    <div class="explanation-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Unified Metrics and Analytics</h4>
+                            <p>The captured data is aggregated in real time and then based on business logic historical trends, cross system correlation is prepared. The aggregated data is presented in following ways:</p>
+                            <ul>
+                                <li>Dashboard and widgets</li>
+                                <li>Combined with Gen AI intelligence to be used in dashboard and chat bots</li>
+                                <li>Automated alerts which are time or instance based</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="explanation-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Persona Specific Experience</h4>
+                            <p>The system adjusts its view depending on who is accessing the information to ensure quick access of the data</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="platform-explanation">
+                <div class="explanation-header" id="publishing-toggle">
+                    <h3>Publishing Process</h3>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="explanation-content" id="publishing-content">
+                    <div class="publishing-flow">
+                        <div class="publishing-step">
+                            <div class="step-icon">1️⃣</div>
+                            <div class="step-details">
+                                <h4>Agent Creation</h4>
+                                <p>Developer creates an AI agent with configurations of knowledge, tools and connectors</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="publishing-step">
+                            <div class="step-icon">2️⃣</div>
+                            <div class="step-details">
+                                <h4>Connector Configuration</h4>
+                                <p>Connectors may require admin approval or may not. If connectors don't require admin approval, user can use local data to test their agent. If connectors require approval, user needs to prepare tenant admin consent request and security documentation</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="publishing-step">
+                            <div class="step-icon">3️⃣</div>
+                            <div class="step-details">
+                                <h4>Agent Testing</h4>
+                                <p>After configuration, user can test their agent</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="publishing-step">
+                            <div class="step-icon">4️⃣</div>
+                            <div class="step-details">
+                                <h4>Publish Target Selection</h4>
+                                <p>User chooses a publish target which can be:</p>
+                                <ul>
+                                    <li><strong>Self:</strong> For personal use - publishing does not require admin approval</li>
+                                    <li><strong>Org/Public:</strong> For organization or public use - admin approval is needed</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="publishing-step">
+                            <div class="step-icon">5️⃣</div>
+                            <div class="step-details">
+                                <h4>Admin Review</h4>
+                                <p>Admin reviews connector scopes, data handling, security, etc.</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="publishing-step">
+                            <div class="step-icon">6️⃣</div>
+                            <div class="step-details">
+                                <h4>Approval or Rejection</h4>
+                                <p><strong>If Approved:</strong> Admin assigns the channel on which the agent can be used and notifies maker</p>
+                                <p><strong>If Rejected:</strong> Admin provides feedback to the developers</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="publishing-step">
+                            <div class="step-icon">7️⃣</div>
+                            <div class="step-details">
+                                <h4>Resubmission (if rejected)</h4>
+                                <p>Developer performs changes based on feedback and re-submits</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Business Leader View -->
+    <div id="business-leader-page" class="page">
+        <div class="dashboard-header">
+            <button class="back-btn" onclick="showLanding()">← Back</button>
+            <h1>Business Leader Dashboard</h1>
+        </div>
+        <div class="dashboard-container">
+            <div class="widget agent-submissions-widget">
+                <div class="widget-header">
+                    <h2>Agent Publishing Overview</h2>
+                    <div class="widget-controls">
+                        <button class="view-toggle active" data-view="numbers">Numbers</button>
+                        <button class="view-toggle" data-view="charts">Charts</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="churn-info-hint">
+                        <div class="hint-icon">ℹ️</div>
+                        <div class="hint-content">
+                            <div class="hint-title">Static Data Notice</div>
+                            <p>As the data is static here, the filters are only for representation purpose and won't provide accurate information.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filters">
+                    <select id="submission-type-filter">
+                        <option value="all">All Submission Types</option>
+                        <option value="new">New</option>
+                        <option value="update">Update</option>
+                    </select>
+                    <select id="creator-filter">
+                        <option value="all">All Creators</option>
+                        <option value="microsoft">Microsoft</option>
+                        <option value="third-party">Third Party</option>
+                    </select>
+                    <select id="time-range-filter">
+                        <option value="1w" selected>Last Week</option>
+                        <option value="2w">Last 2 Weeks</option>
+                        <option value="1m">Last Month</option>
+                        <option value="3m">Last 3 Months</option>
+                    </select>
+                    <select id="agent-user-filter">
+                        <option value="all">All Users</option>
+                        <option value="org">Org</option>
+                        <option value="public">Public</option>
+                        <option value="self">Self</option>
+                    </select>
+                </div>
+                <div class="widget-content">
+                    <div class="metrics-grid" id="submissions-numbers">
+                        <div class="metric-card">
+                            <div class="metric-label">Agent Submissions</div>
+                            <div class="metric-value" data-value="1247">0</div>
+                            <div class="metric-change positive">+12.5%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Pending for Review</div>
+                            <div class="metric-value" data-value="89">0</div>
+                            <div class="metric-change neutral">-3.2%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Approvals</div>
+                            <div class="metric-value" data-value="1089">0</div>
+                            <div class="metric-change positive">+15.8%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Rejections</div>
+                            <div class="metric-value" data-value="69">0</div>
+                            <div class="metric-change negative">+5.1%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Submission to Approval Latency</div>
+                            <div class="metric-value" data-value="2.3">0</div>
+                            <div class="metric-unit">days</div>
+                            <div class="metric-change positive">-8.2%</div>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="submissions-charts" style="display: none;">
+                        <canvas id="submissions-trend-chart"></canvas>
+                    </div>
+                    <div class="detailed-summary-cta">
+                        <button class="btn-detailed-summary" onclick="toggleDetailedSummary()">Detailed Summary</button>
+                    </div>
+                    <div class="detailed-summary-content collapsed" id="detailed-summary-content">
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Flow and Volume Metrics</h3>
+                            <div class="detailed-section-filters">
+                                <select id="flow-volume-creator-filter" class="detailed-filter">
+                                    <option value="all">All Creators</option>
+                                    <option value="microsoft">Microsoft</option>
+                                    <option value="third-party">Third Party</option>
+                                </select>
+                                <select id="flow-volume-week-filter" class="detailed-filter">
+                                    <option value="1w" selected>Last week</option>
+                                    <option value="2w">Last 2 weeks</option>
+                                    <option value="1m">Last month</option>
+                                    <option value="3m">Last 3 months</option>
+                                </select>
+                            </div>
+                            <div class="flow-volume-container">
+                                <div class="flow-volume-category">
+                                    <h4 class="flow-volume-category-title">New Submissions</h4>
+                                    <div class="flow-volume-metrics">
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Agent Submissions</div>
+                                            <div class="flow-volume-metric-value" data-value="892">0</div>
+                                            <div class="flow-volume-metric-change positive">+8.3%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Pending for Review</div>
+                                            <div class="flow-volume-metric-value" data-value="67">0</div>
+                                            <div class="flow-volume-metric-change neutral">-2.1%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approvals</div>
+                                            <div class="flow-volume-metric-value" data-value="785">0</div>
+                                            <div class="flow-volume-metric-change positive">+10.5%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Rejections</div>
+                                            <div class="flow-volume-metric-value" data-value="40">0</div>
+                                            <div class="flow-volume-metric-change negative">+3.2%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approval/Rejection Ratio</div>
+                                            <div class="flow-volume-metric-value" data-value="19.6">0</div>
+                                            <div class="flow-volume-metric-unit">:1</div>
+                                            <div class="flow-volume-metric-change positive">+7.1%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flow-volume-category">
+                                    <h4 class="flow-volume-category-title">Updates</h4>
+                                    <div class="flow-volume-metrics">
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Agent Submissions</div>
+                                            <div class="flow-volume-metric-value" data-value="355">0</div>
+                                            <div class="flow-volume-metric-change positive">+12.1%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Pending for Review</div>
+                                            <div class="flow-volume-metric-value" data-value="22">0</div>
+                                            <div class="flow-volume-metric-change neutral">-1.8%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approvals</div>
+                                            <div class="flow-volume-metric-value" data-value="304">0</div>
+                                            <div class="flow-volume-metric-change positive">+14.2%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Rejections</div>
+                                            <div class="flow-volume-metric-value" data-value="29">0</div>
+                                            <div class="flow-volume-metric-change negative">+2.8%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approval/Rejection Ratio</div>
+                                            <div class="flow-volume-metric-value" data-value="10.5">0</div>
+                                            <div class="flow-volume-metric-unit">:1</div>
+                                            <div class="flow-volume-metric-change positive">+11.0%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flow-volume-chart-container">
+                                <h4 class="flow-volume-chart-title">Trend Comparison</h4>
+                                <canvas id="flow-volume-trend-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Latency Metrics</h3>
+                            <div class="detailed-section-filters">
+                                <select id="latency-creator-filter" class="detailed-filter">
+                                    <option value="all">All Creators</option>
+                                    <option value="microsoft">Microsoft</option>
+                                    <option value="third-party">Third Party</option>
+                                </select>
+                                <select id="latency-week-filter" class="detailed-filter">
+                                    <option value="1w" selected>Last week</option>
+                                    <option value="2w">Last 2 weeks</option>
+                                    <option value="1m">Last month</option>
+                                    <option value="3m">Last 3 months</option>
+                                </select>
+                            </div>
+                            <div class="detailed-metrics-grid">
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">New Submission to Approval Time</div>
+                                    <div class="detailed-metric-value" data-value="2.3">0</div>
+                                    <div class="detailed-metric-unit">days</div>
+                                    <div class="detailed-metric-change positive">-8.2%</div>
+                                </div>
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Time per Publishing Step</div>
+                                    <div class="detailed-metric-value" data-value="0.4">0</div>
+                                    <div class="detailed-metric-unit">days</div>
+                                    <div class="detailed-metric-change positive">-5.0%</div>
+                                </div>
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Agent Update Submission to Approval Time</div>
+                                    <div class="detailed-metric-value" data-value="1.8">0</div>
+                                    <div class="detailed-metric-unit">days</div>
+                                    <div class="detailed-metric-change positive">-10.0%</div>
+                                </div>
+                            </div>
+                            <div class="flow-volume-chart-container">
+                                <h4 class="flow-volume-chart-title">Trend Comparison</h4>
+                                <canvas id="latency-trend-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Quality and Risk Metrics</h3>
+                            <div class="detailed-section-filters">
+                                <select id="quality-risk-creator-filter" class="detailed-filter">
+                                    <option value="all">All Creators</option>
+                                    <option value="microsoft">Microsoft</option>
+                                    <option value="third-party">Third Party</option>
+                                </select>
+                                <select id="quality-risk-week-filter" class="detailed-filter">
+                                    <option value="1w" selected>Last week</option>
+                                    <option value="2w">Last 2 weeks</option>
+                                    <option value="1m">Last month</option>
+                                    <option value="3m">Last 3 months</option>
+                                </select>
+                            </div>
+                            <div class="detailed-metrics-grid">
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Average number of rejections before first publish</div>
+                                    <div class="detailed-metric-value" data-value="1.2">0</div>
+                                    <div class="detailed-metric-change positive">-0.3</div>
+                                </div>
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Average number of rejections for update publish</div>
+                                    <div class="detailed-metric-value" data-value="0.8">0</div>
+                                    <div class="detailed-metric-change positive">-0.2</div>
+                                </div>
+                            </div>
+                            <div class="flow-volume-chart-container">
+                                <h4 class="flow-volume-chart-title">Trend Comparison</h4>
+                                <canvas id="rejection-average-trend-chart"></canvas>
+                            </div>
+                            <div class="quality-risk-cta">
+                                <button class="btn-rejection-reasons" onclick="navigateToRejectionReasons()">Rejection reasons</button>
+                            </div>
+                        </div>
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Ecosystem Metrics</h3>
+                            <div class="ecosystem-tables-container">
+                                <div class="ecosystem-trend-selector">
+                                    <button class="ecosystem-trend-btn active" data-trend="submission" onclick="switchEcosystemTrend('submission')">Submission trend</button>
+                                    <button class="ecosystem-trend-btn" data-trend="rejection" onclick="switchEcosystemTrend('rejection')">Rejection trends</button>
+                                    <button class="ecosystem-trend-btn" data-trend="approval" onclick="switchEcosystemTrend('approval')">Approval trends</button>
+                                    <button class="ecosystem-trend-btn" data-trend="latency" onclick="switchEcosystemTrend('latency')">Latency trends</button>
+                                    <button class="ecosystem-trend-btn" data-trend="escalation" onclick="switchEcosystemTrend('escalation')">Escalation trends</button>
+                                </div>
+                                <div class="ecosystem-table-wrapper">
+                                    <table class="ecosystem-table" id="ecosystem-trend-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Cohort</th>
+                                                <th>Week 1</th>
+                                                <th>Week 2</th>
+                                                <th>Week 3</th>
+                                                <th>Week 4</th>
+                                                <th>Health</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">Startups (&lt;10 Developers)</td>
+                                                <td>45</td>
+                                                <td>
+                                                    <span class="ecosystem-value">48</span>
+                                                    <span class="ecosystem-change positive">+6.7%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">52</span>
+                                                    <span class="ecosystem-change positive">+8.3%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">55</span>
+                                                    <span class="ecosystem-change positive">+5.8%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +22.2%</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">Mid-sized startups (10 to 50 developers)</td>
+                                                <td>120</td>
+                                                <td>
+                                                    <span class="ecosystem-value">128</span>
+                                                    <span class="ecosystem-change positive">+6.7%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">135</span>
+                                                    <span class="ecosystem-change positive">+5.5%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">142</span>
+                                                    <span class="ecosystem-change positive">+5.2%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +18.3%</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">Established startups (50 to 100 developers)</td>
+                                                <td>280</td>
+                                                <td>
+                                                    <span class="ecosystem-value">295</span>
+                                                    <span class="ecosystem-change positive">+5.4%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">310</span>
+                                                    <span class="ecosystem-change positive">+5.1%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">325</span>
+                                                    <span class="ecosystem-change positive">+4.8%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +16.1%</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">MNC (&gt;100 developers)</td>
+                                                <td>450</td>
+                                                <td>
+                                                    <span class="ecosystem-value">465</span>
+                                                    <span class="ecosystem-change positive">+3.3%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">478</span>
+                                                    <span class="ecosystem-change positive">+2.8%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">490</span>
+                                                    <span class="ecosystem-change positive">+2.5%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +8.9%</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget churn-risk-widget">
+                <div class="widget-header">
+                    <h2>Clients on Churn Risk</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="churn-info-hint">
+                        <div class="hint-icon">ℹ️</div>
+                        <div class="hint-content">
+                            <div class="hint-title">How Churn Risk is Calculated</div>
+                            <p>Clients are grouped into cohorts based on nature of business and developer headcount. Health threshold is calculated by comparing performance metrics (submissions, approval, rejection, latency) against cohort baseline.</p>
+                        </div>
+                    </div>
+                    <div class="churn-filters">
+                        <select id="churn-time-range-filter">
+                            <option value="1w" selected>Last week</option>
+                            <option value="2w">Last 2 weeks</option>
+                            <option value="1m">Last month</option>
+                            <option value="3m">Last 3 months</option>
+                        </select>
+                    </div>
+                    <div class="churn-list">
+                        <div class="churn-item expanded">
+                            <div class="churn-header">
+                                <div class="churn-client-info">
+                                    <div class="churn-client">Acme Corporation</div>
+                                    <div class="churn-cohort">Cohort: Enterprise SaaS | 50-100 Developers</div>
+                                </div>
+                                <div class="churn-status">
+                                    <div class="churn-risk negative">Negative</div>
+                                    <div class="churn-baseline">Baseline: 120 submissions, 85% approval, 8% rejection, 2.1 days latency</div>
+                                </div>
+                            </div>
+                            <div class="churn-vitals">
+                                <div class="vital-metric">
+                                    <div class="vital-label">Submissions</div>
+                                    <div class="vital-value">95</div>
+                                    <div class="vital-baseline">Baseline: 120</div>
+                                    <div class="vital-change negative">-20.8% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Approval Rate</div>
+                                    <div class="vital-value">72%</div>
+                                    <div class="vital-baseline">Baseline: 85%</div>
+                                    <div class="vital-change negative">-15.3% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Rejection Rate</div>
+                                    <div class="vital-value">15%</div>
+                                    <div class="vital-baseline">Baseline: 8%</div>
+                                    <div class="vital-change negative">+87.5% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Avg Latency</div>
+                                    <div class="vital-value">3.4 days</div>
+                                    <div class="vital-baseline">Baseline: 2.1 days</div>
+                                    <div class="vital-change negative">+61.9% vs baseline</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="churn-item expanded">
+                            <div class="churn-header">
+                                <div class="churn-client-info">
+                                    <div class="churn-client">DataWorks LLC</div>
+                                    <div class="churn-cohort">Cohort: Financial Services | 20-50 Developers</div>
+                                </div>
+                                <div class="churn-status">
+                                    <div class="churn-risk negative">Negative</div>
+                                    <div class="churn-baseline">Baseline: 80 submissions, 88% approval, 6% rejection, 1.8 days latency</div>
+                                </div>
+                            </div>
+                            <div class="churn-vitals">
+                                <div class="vital-metric">
+                                    <div class="vital-label">Submissions</div>
+                                    <div class="vital-value">65</div>
+                                    <div class="vital-baseline">Baseline: 80</div>
+                                    <div class="vital-change negative">-18.8% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Approval Rate</div>
+                                    <div class="vital-value">78%</div>
+                                    <div class="vital-baseline">Baseline: 88%</div>
+                                    <div class="vital-change negative">-11.4% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Rejection Rate</div>
+                                    <div class="vital-value">12%</div>
+                                    <div class="vital-baseline">Baseline: 6%</div>
+                                    <div class="vital-change negative">+100% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Avg Latency</div>
+                                    <div class="vital-value">2.6 days</div>
+                                    <div class="vital-baseline">Baseline: 1.8 days</div>
+                                    <div class="vital-change negative">+44.4% vs baseline</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="churn-item expanded">
+                            <div class="churn-header">
+                                <div class="churn-client-info">
+                                    <div class="churn-client">TechStart Inc.</div>
+                                    <div class="churn-cohort">Cohort: Startup | 10-20 Developers</div>
+                                </div>
+                                <div class="churn-status">
+                                    <div class="churn-risk negative">Negative</div>
+                                    <div class="churn-baseline">Baseline: 45 submissions, 82% approval, 10% rejection, 2.5 days latency</div>
+                                </div>
+                            </div>
+                            <div class="churn-vitals">
+                                <div class="vital-metric">
+                                    <div class="vital-label">Submissions</div>
+                                    <div class="vital-value">38</div>
+                                    <div class="vital-baseline">Baseline: 45</div>
+                                    <div class="vital-change negative">-15.6% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Approval Rate</div>
+                                    <div class="vital-value">74%</div>
+                                    <div class="vital-baseline">Baseline: 82%</div>
+                                    <div class="vital-change negative">-9.8% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Rejection Rate</div>
+                                    <div class="vital-value">16%</div>
+                                    <div class="vital-baseline">Baseline: 10%</div>
+                                    <div class="vital-change negative">+60% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Avg Latency</div>
+                                    <div class="vital-value">3.1 days</div>
+                                    <div class="vital-baseline">Baseline: 2.5 days</div>
+                                    <div class="vital-change negative">+24% vs baseline</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget rejection-reasons-widget">
+                <div class="widget-header">
+                    <h2>Rejection Reasons</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="churn-info-hint">
+                        <div class="hint-icon">ℹ️</div>
+                        <div class="hint-content">
+                            <div class="hint-title">Gen AI Classification</div>
+                            <p>This is the visual representation of dummy data. In production this dashboard will work with Gen AI capabilities. Gen AI will have access to the rejection reasons data and will be able to classify the rejection reasons based on pre-defined categories. Post classification the data will be displayed here in the dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="rejection-filters">
+                        <select id="rejection-creator-filter">
+                            <option value="all">All Creators</option>
+                            <option value="microsoft">Microsoft</option>
+                            <option value="third-party">Third Party</option>
+                        </select>
+                        <select id="rejection-time-range-filter">
+                            <option value="1w" selected>Last week</option>
+                            <option value="2w">Last 2 weeks</option>
+                            <option value="1m">Last month</option>
+                            <option value="3m">Last 3 months</option>
+                        </select>
+                    </div>
+                    <div class="rejection-overview">
+                        <div class="rejection-chart-wrapper">
+                            <canvas id="rejection-reasons-chart"></canvas>
+                        </div>
+                        <div class="rejection-summary">
+                            <div class="summary-item">
+                                <div class="summary-label">Total Rejections</div>
+                                <div class="summary-value">74</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Top Reason</div>
+                                <div class="summary-value">Security Docs</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rejection-cards">
+                        <div class="rejection-card new">
+                            <div class="card-header">
+                                <div class="rejection-badge new">NEW</div>
+                                <div class="rejection-rank">#1</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Insufficient security documentation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">23</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#2</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Connector scope mismatch</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">18</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#3</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Data handling policy violation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">15</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#4</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Incomplete tenant admin consent</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">5</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 22%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#5</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Invalid API endpoint configuration</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">4</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 17%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#6</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Agent naming convention violation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">3</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 13%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#7</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Insufficient error handling documentation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 9%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#8</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Missing privacy policy compliance</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 9%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#9</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Inadequate user authentication setup</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">1</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 4%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#10</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Unsupported connector type usage</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">1</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 4%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget api-health-widget">
+                <div class="widget-header collapsible-header collapsed" id="api-health-toggle">
+                    <h2>API Health</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="widget-content api-health-content collapsed" id="api-health-content">
+                    <div class="rejection-filters">
+                        <select id="api-health-time-range-filter">
+                            <option value="1w" selected>Last week</option>
+                            <option value="2w">Last 2 weeks</option>
+                            <option value="1m">Last month</option>
+                            <option value="3m">Last 3 months</option>
+                        </select>
+                    </div>
+                    <div class="api-table-container">
+                        <table class="api-table">
+                            <thead>
+                                <tr>
+                                    <th>API Name</th>
+                                    <th>Success Rate</th>
+                                    <th>Avg Latency</th>
+                                    <th>Error Rate</th>
+                                    <th>Latency Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="api-name-cell">Agent Submission API</td>
+                                    <td><span class="table-value success">99.2%</span></td>
+                                    <td><span class="table-value">145ms</span></td>
+                                    <td><span class="table-value error">0.8%</span></td>
+                                    <td class="api-chart-cell">
+                                        <canvas class="api-trend-chart" id="api-trend-1"></canvas>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="api-name-cell">Approval Workflow API</td>
+                                    <td><span class="table-value success">98.7%</span></td>
+                                    <td><span class="table-value">203ms</span></td>
+                                    <td><span class="table-value error">1.3%</span></td>
+                                    <td class="api-chart-cell">
+                                        <canvas class="api-trend-chart" id="api-trend-2"></canvas>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="api-name-cell">Notification Service API</td>
+                                    <td><span class="table-value success">99.5%</span></td>
+                                    <td><span class="table-value">89ms</span></td>
+                                    <td><span class="table-value error">0.5%</span></td>
+                                    <td class="api-chart-cell">
+                                        <canvas class="api-trend-chart" id="api-trend-3"></canvas>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Engineering Team View -->
+    <div id="engineering-page" class="page">
+        <div class="dashboard-header">
+            <button class="back-btn" onclick="showLanding()">← Back</button>
+            <h1>Engineering Team Dashboard</h1>
+        </div>
+        <div class="dashboard-container">
+            <div class="widget agent-submissions-widget">
+                <div class="widget-header">
+                    <h2>Agent Submissions</h2>
+                    <div class="widget-controls">
+                        <button class="view-toggle active" data-view="numbers">Numbers</button>
+                        <button class="view-toggle" data-view="charts">Charts</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="churn-info-hint">
+                        <div class="hint-icon">ℹ️</div>
+                        <div class="hint-content">
+                            <div class="hint-title">Static Data Notice</div>
+                            <p>As the data is static here, the filters are only for representation purpose and won't provide accurate information.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filters">
+                    <select id="submission-type-filter-eng">
+                        <option value="all">All Submission Types</option>
+                        <option value="new">New</option>
+                        <option value="update">Update</option>
+                    </select>
+                    <select id="creator-filter-eng">
+                        <option value="all">All Creators</option>
+                        <option value="microsoft">Microsoft</option>
+                        <option value="third-party">Third Party</option>
+                    </select>
+                    <select id="time-range-filter-eng">
+                        <option value="1w" selected>Last Week</option>
+                        <option value="2w">Last 2 Weeks</option>
+                        <option value="1m">Last Month</option>
+                        <option value="3m">Last 3 Months</option>
+                    </select>
+                    <select id="agent-user-filter-eng">
+                        <option value="all">All Users</option>
+                        <option value="org">Org</option>
+                        <option value="public">Public</option>
+                        <option value="self">Self</option>
+                    </select>
+                </div>
+                <div class="widget-content">
+                    <div class="metrics-grid" id="submissions-numbers-eng">
+                        <div class="metric-card">
+                            <div class="metric-label">Agent Submissions</div>
+                            <div class="metric-value" data-value="1247">0</div>
+                            <div class="metric-change positive">+12.5%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Pending for Review</div>
+                            <div class="metric-value" data-value="89">0</div>
+                            <div class="metric-change neutral">-3.2%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Approvals</div>
+                            <div class="metric-value" data-value="1089">0</div>
+                            <div class="metric-change positive">+15.8%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Rejections</div>
+                            <div class="metric-value" data-value="69">0</div>
+                            <div class="metric-change negative">+5.1%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Submission to Approval Latency</div>
+                            <div class="metric-value" data-value="2.3">0</div>
+                            <div class="metric-unit">days</div>
+                            <div class="metric-change positive">-8.2%</div>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="submissions-charts-eng" style="display: none;">
+                        <canvas id="submissions-trend-chart-eng"></canvas>
+                    </div>
+                    <div class="detailed-summary-cta">
+                        <button class="btn-detailed-summary" onclick="toggleDetailedSummary('-eng')">Detailed Summary</button>
+                    </div>
+                    <div class="detailed-summary-content collapsed" id="detailed-summary-content-eng">
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Flow and Volume Metrics</h3>
+                            <div class="detailed-section-filters">
+                                <select id="flow-volume-creator-filter-eng" class="detailed-filter">
+                                    <option value="all">All Creators</option>
+                                    <option value="microsoft">Microsoft</option>
+                                    <option value="third-party">Third Party</option>
+                                </select>
+                                <select id="flow-volume-week-filter-eng" class="detailed-filter">
+                                    <option value="1w" selected>Last week</option>
+                                    <option value="2w">Last 2 weeks</option>
+                                    <option value="1m">Last month</option>
+                                    <option value="3m">Last 3 months</option>
+                                </select>
+                            </div>
+                            <div class="flow-volume-container">
+                                <div class="flow-volume-category">
+                                    <h4 class="flow-volume-category-title">New Submissions</h4>
+                                    <div class="flow-volume-metrics">
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Agent Submissions</div>
+                                            <div class="flow-volume-metric-value" data-value="892">0</div>
+                                            <div class="flow-volume-metric-change positive">+8.3%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Pending for Review</div>
+                                            <div class="flow-volume-metric-value" data-value="67">0</div>
+                                            <div class="flow-volume-metric-change neutral">-2.1%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approvals</div>
+                                            <div class="flow-volume-metric-value" data-value="785">0</div>
+                                            <div class="flow-volume-metric-change positive">+10.5%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Rejections</div>
+                                            <div class="flow-volume-metric-value" data-value="40">0</div>
+                                            <div class="flow-volume-metric-change negative">+3.2%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approval/Rejection Ratio</div>
+                                            <div class="flow-volume-metric-value" data-value="19.6">0</div>
+                                            <div class="flow-volume-metric-unit">:1</div>
+                                            <div class="flow-volume-metric-change positive">+7.1%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flow-volume-category">
+                                    <h4 class="flow-volume-category-title">Updates</h4>
+                                    <div class="flow-volume-metrics">
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Agent Submissions</div>
+                                            <div class="flow-volume-metric-value" data-value="355">0</div>
+                                            <div class="flow-volume-metric-change positive">+12.1%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Pending for Review</div>
+                                            <div class="flow-volume-metric-value" data-value="22">0</div>
+                                            <div class="flow-volume-metric-change neutral">-1.8%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approvals</div>
+                                            <div class="flow-volume-metric-value" data-value="304">0</div>
+                                            <div class="flow-volume-metric-change positive">+14.2%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Rejections</div>
+                                            <div class="flow-volume-metric-value" data-value="29">0</div>
+                                            <div class="flow-volume-metric-change negative">+2.8%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approval/Rejection Ratio</div>
+                                            <div class="flow-volume-metric-value" data-value="10.5">0</div>
+                                            <div class="flow-volume-metric-unit">:1</div>
+                                            <div class="flow-volume-metric-change positive">+11.0%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flow-volume-chart-container">
+                                <h4 class="flow-volume-chart-title">Trend Comparison</h4>
+                                <canvas id="flow-volume-trend-chart-eng"></canvas>
+                            </div>
+                        </div>
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Latency Metrics</h3>
+                            <div class="detailed-section-filters">
+                                <select id="latency-creator-filter-eng" class="detailed-filter">
+                                    <option value="all">All Creators</option>
+                                    <option value="microsoft">Microsoft</option>
+                                    <option value="third-party">Third Party</option>
+                                </select>
+                                <select id="latency-week-filter-eng" class="detailed-filter">
+                                    <option value="1w" selected>Last week</option>
+                                    <option value="2w">Last 2 weeks</option>
+                                    <option value="1m">Last month</option>
+                                    <option value="3m">Last 3 months</option>
+                                </select>
+                            </div>
+                            <div class="detailed-metrics-grid">
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">New Submission to Approval Time</div>
+                                    <div class="detailed-metric-value" data-value="2.3">0</div>
+                                    <div class="detailed-metric-unit">days</div>
+                                    <div class="detailed-metric-change positive">-8.2%</div>
+                                </div>
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Time per Publishing Step</div>
+                                    <div class="detailed-metric-value" data-value="0.4">0</div>
+                                    <div class="detailed-metric-unit">days</div>
+                                    <div class="detailed-metric-change positive">-5.0%</div>
+                                </div>
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Agent Update Submission to Approval Time</div>
+                                    <div class="detailed-metric-value" data-value="1.8">0</div>
+                                    <div class="detailed-metric-unit">days</div>
+                                    <div class="detailed-metric-change positive">-10.0%</div>
+                                </div>
+                            </div>
+                            <div class="flow-volume-chart-container">
+                                <h4 class="flow-volume-chart-title">Trend Comparison</h4>
+                                <canvas id="latency-trend-chart-eng"></canvas>
+                            </div>
+                        </div>
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Quality and Risk Metrics</h3>
+                            <div class="detailed-section-filters">
+                                <select id="quality-risk-creator-filter-eng" class="detailed-filter">
+                                    <option value="all">All Creators</option>
+                                    <option value="microsoft">Microsoft</option>
+                                    <option value="third-party">Third Party</option>
+                                </select>
+                                <select id="quality-risk-week-filter-eng" class="detailed-filter">
+                                    <option value="1w" selected>Last week</option>
+                                    <option value="2w">Last 2 weeks</option>
+                                    <option value="1m">Last month</option>
+                                    <option value="3m">Last 3 months</option>
+                                </select>
+                            </div>
+                            <div class="detailed-metrics-grid">
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Average number of rejections before first publish</div>
+                                    <div class="detailed-metric-value" data-value="1.2">0</div>
+                                    <div class="detailed-metric-change positive">-0.3</div>
+                                </div>
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Average number of rejections for update publish</div>
+                                    <div class="detailed-metric-value" data-value="0.8">0</div>
+                                    <div class="detailed-metric-change positive">-0.2</div>
+                                </div>
+                            </div>
+                            <div class="flow-volume-chart-container">
+                                <h4 class="flow-volume-chart-title">Trend Comparison</h4>
+                                <canvas id="rejection-average-trend-chart-eng"></canvas>
+                            </div>
+                            <div class="quality-risk-cta">
+                                <button class="btn-rejection-reasons" onclick="navigateToRejectionReasons('-eng')">Rejection reasons</button>
+                            </div>
+                        </div>
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Ecosystem Metrics</h3>
+                            <div class="ecosystem-tables-container">
+                                <div class="ecosystem-trend-selector">
+                                    <button class="ecosystem-trend-btn active" data-trend="submission" onclick="switchEcosystemTrend('submission', '-eng')">Submission trend</button>
+                                    <button class="ecosystem-trend-btn" data-trend="rejection" onclick="switchEcosystemTrend('rejection', '-eng')">Rejection trends</button>
+                                    <button class="ecosystem-trend-btn" data-trend="approval" onclick="switchEcosystemTrend('approval', '-eng')">Approval trends</button>
+                                    <button class="ecosystem-trend-btn" data-trend="latency" onclick="switchEcosystemTrend('latency', '-eng')">Latency trends</button>
+                                    <button class="ecosystem-trend-btn" data-trend="escalation" onclick="switchEcosystemTrend('escalation', '-eng')">Escalation trends</button>
+                                </div>
+                                <div class="ecosystem-table-wrapper">
+                                    <table class="ecosystem-table" id="ecosystem-trend-table-eng">
+                                        <thead>
+                                            <tr>
+                                                <th>Cohort</th>
+                                                <th>Week 1</th>
+                                                <th>Week 2</th>
+                                                <th>Week 3</th>
+                                                <th>Week 4</th>
+                                                <th>Health</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">Startups (&lt;10 Developers)</td>
+                                                <td>45</td>
+                                                <td>
+                                                    <span class="ecosystem-value">48</span>
+                                                    <span class="ecosystem-change positive">+6.7%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">52</span>
+                                                    <span class="ecosystem-change positive">+8.3%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">55</span>
+                                                    <span class="ecosystem-change positive">+5.8%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +22.2%</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">Mid-sized startups (10 to 50 developers)</td>
+                                                <td>120</td>
+                                                <td>
+                                                    <span class="ecosystem-value">128</span>
+                                                    <span class="ecosystem-change positive">+6.7%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">135</span>
+                                                    <span class="ecosystem-change positive">+5.5%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">142</span>
+                                                    <span class="ecosystem-change positive">+5.2%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +18.3%</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">Established startups (50 to 100 developers)</td>
+                                                <td>280</td>
+                                                <td>
+                                                    <span class="ecosystem-value">295</span>
+                                                    <span class="ecosystem-change positive">+5.4%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">310</span>
+                                                    <span class="ecosystem-change positive">+5.1%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">325</span>
+                                                    <span class="ecosystem-change positive">+4.8%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +16.1%</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">MNC (&gt;100 developers)</td>
+                                                <td>450</td>
+                                                <td>
+                                                    <span class="ecosystem-value">465</span>
+                                                    <span class="ecosystem-change positive">+3.3%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">478</span>
+                                                    <span class="ecosystem-change positive">+2.8%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">490</span>
+                                                    <span class="ecosystem-change positive">+2.5%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +8.9%</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget api-health-widget">
+                <div class="widget-header">
+                    <h2>API Health</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="rejection-filters">
+                        <select id="api-health-time-range-filter-eng">
+                            <option value="1w" selected>Last week</option>
+                            <option value="2w">Last 2 weeks</option>
+                            <option value="1m">Last month</option>
+                            <option value="3m">Last 3 months</option>
+                        </select>
+                    </div>
+                    <div class="api-table-container">
+                        <table class="api-table">
+                            <thead>
+                                <tr>
+                                    <th>API Name</th>
+                                    <th>Success Rate</th>
+                                    <th>Avg Latency</th>
+                                    <th>Error Rate</th>
+                                    <th>Latency Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="api-name-cell">Agent Submission API</td>
+                                    <td><span class="table-value success">99.2%</span></td>
+                                    <td><span class="table-value">145ms</span></td>
+                                    <td><span class="table-value error">0.8%</span></td>
+                                    <td class="api-chart-cell">
+                                        <canvas class="api-trend-chart" id="api-trend-eng-1"></canvas>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="api-name-cell">Approval Workflow API</td>
+                                    <td><span class="table-value success">98.7%</span></td>
+                                    <td><span class="table-value">203ms</span></td>
+                                    <td><span class="table-value error">1.3%</span></td>
+                                    <td class="api-chart-cell">
+                                        <canvas class="api-trend-chart" id="api-trend-eng-2"></canvas>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="api-name-cell">Notification Service API</td>
+                                    <td><span class="table-value success">99.5%</span></td>
+                                    <td><span class="table-value">89ms</span></td>
+                                    <td><span class="table-value error">0.5%</span></td>
+                                    <td class="api-chart-cell">
+                                        <canvas class="api-trend-chart" id="api-trend-eng-3"></canvas>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget rejection-reasons-widget">
+                <div class="widget-header">
+                    <h2>Rejection Reasons</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="churn-info-hint">
+                        <div class="hint-icon">ℹ️</div>
+                        <div class="hint-content">
+                            <div class="hint-title">Gen AI Classification</div>
+                            <p>This is the visual representation of dummy data. In production this dashboard will work with Gen AI capabilities. Gen AI will have access to the rejection reasons data and will be able to classify the rejection reasons based on pre-defined categories. Post classification the data will be displayed here in the dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="rejection-filters">
+                        <select id="rejection-creator-filter-eng">
+                            <option value="all">All Creators</option>
+                            <option value="microsoft">Microsoft</option>
+                            <option value="third-party">Third Party</option>
+                        </select>
+                        <select id="rejection-time-range-filter-eng">
+                            <option value="1w" selected>Last week</option>
+                            <option value="2w">Last 2 weeks</option>
+                            <option value="1m">Last month</option>
+                            <option value="3m">Last 3 months</option>
+                        </select>
+                    </div>
+                    <div class="rejection-overview">
+                        <div class="rejection-chart-wrapper">
+                            <canvas id="rejection-reasons-chart-eng"></canvas>
+                        </div>
+                        <div class="rejection-summary">
+                            <div class="summary-item">
+                                <div class="summary-label">Total Rejections</div>
+                                <div class="summary-value">74</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Top Reason</div>
+                                <div class="summary-value">Security Docs</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rejection-cards">
+                        <div class="rejection-card new">
+                            <div class="card-header">
+                                <div class="rejection-badge new">NEW</div>
+                                <div class="rejection-rank">#1</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Insufficient security documentation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">23</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#2</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Connector scope mismatch</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">18</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#3</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Data handling policy violation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">15</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#4</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Incomplete tenant admin consent</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">5</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 22%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#5</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Invalid API endpoint configuration</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">4</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 17%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#6</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Agent naming convention violation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">3</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 13%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#7</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Insufficient error handling documentation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 9%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#8</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Missing privacy policy compliance</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 9%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#9</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Inadequate user authentication setup</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">1</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 4%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#10</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Unsupported connector type usage</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">1</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 4%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget automated-alerts-widget">
+                <div class="widget-header">
+                    <h2>Automated Alerts</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="alerts-list">
+                        <div class="alert-item">
+                            <div class="alert-info">
+                                <div class="alert-name">Automated Client Churn Risk Alert</div>
+                                <div class="alert-status active">Active</div>
+                            </div>
+                            <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                        </div>
+                        <div class="alert-item">
+                            <div class="alert-info">
+                                <div class="alert-name">System Outage Alert</div>
+                                <div class="alert-status active">Active</div>
+                            </div>
+                            <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                        </div>
+                        <div class="alert-item">
+                            <div class="alert-info">
+                                <div class="alert-name">Daily Summary Alert</div>
+                                <div class="alert-status active">Active</div>
+                            </div>
+                            <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                        </div>
+                        <div class="alert-item">
+                            <div class="alert-info">
+                                <div class="alert-name">Client Publishing Performance Shortfall Report</div>
+                                <div class="alert-status active">Active</div>
+                            </div>
+                            <button class="btn-stop" onclick="stopAlert(this)">Stop</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Floating Gen AI Assistant Button -->
+        <button class="floating-ai-button" onclick="openChatbot()" title="Check escalation urgency">
+            <span class="floating-ai-icon">🤖</span>
+            <span class="floating-ai-text">Check escalation urgency</span>
+        </button>
+    </div>
+
+    <!-- Product Team View -->
+    <div id="product-page" class="page">
+        <div class="dashboard-header">
+            <button class="back-btn" onclick="showLanding()">← Back</button>
+            <h1>Product Team Dashboard</h1>
+        </div>
+        <div class="dashboard-container">
+            <div class="widget agent-submissions-widget">
+                <div class="widget-header">
+                    <h2>Agent Submissions</h2>
+                    <div class="widget-controls">
+                        <button class="view-toggle active" data-view="numbers">Numbers</button>
+                        <button class="view-toggle" data-view="charts">Charts</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="churn-info-hint">
+                        <div class="hint-icon">ℹ️</div>
+                        <div class="hint-content">
+                            <div class="hint-title">Static Data Notice</div>
+                            <p>As the data is static here, the filters are only for representation purpose and won't provide accurate information.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filters">
+                    <select id="submission-type-filter-prod">
+                        <option value="all">All Submission Types</option>
+                        <option value="new">New</option>
+                        <option value="update">Update</option>
+                    </select>
+                    <select id="creator-filter-prod">
+                        <option value="all">All Creators</option>
+                        <option value="microsoft">Microsoft</option>
+                        <option value="third-party">Third Party</option>
+                    </select>
+                    <select id="time-range-filter-prod">
+                        <option value="1w" selected>Last Week</option>
+                        <option value="2w">Last 2 Weeks</option>
+                        <option value="1m">Last Month</option>
+                        <option value="3m">Last 3 Months</option>
+                    </select>
+                    <select id="agent-user-filter-prod">
+                        <option value="all">All Users</option>
+                        <option value="org">Org</option>
+                        <option value="public">Public</option>
+                        <option value="self">Self</option>
+                    </select>
+                </div>
+                <div class="widget-content">
+                    <div class="metrics-grid" id="submissions-numbers-prod">
+                        <div class="metric-card">
+                            <div class="metric-label">Agent Submissions</div>
+                            <div class="metric-value" data-value="1247">0</div>
+                            <div class="metric-change positive">+12.5%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Pending for Review</div>
+                            <div class="metric-value" data-value="89">0</div>
+                            <div class="metric-change neutral">-3.2%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Approvals</div>
+                            <div class="metric-value" data-value="1089">0</div>
+                            <div class="metric-change positive">+15.8%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Rejections</div>
+                            <div class="metric-value" data-value="69">0</div>
+                            <div class="metric-change negative">+5.1%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Submission to Approval Latency</div>
+                            <div class="metric-value" data-value="2.3">0</div>
+                            <div class="metric-unit">days</div>
+                            <div class="metric-change positive">-8.2%</div>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="submissions-charts-prod" style="display: none;">
+                        <canvas id="submissions-trend-chart-prod"></canvas>
+                    </div>
+                    <div class="detailed-summary-content" id="detailed-summary-content-prod">
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Flow and Volume Metrics</h3>
+                            <div class="detailed-section-filters">
+                                <select id="flow-volume-creator-filter-prod" class="detailed-filter">
+                                    <option value="all">All Creators</option>
+                                    <option value="microsoft">Microsoft</option>
+                                    <option value="third-party">Third Party</option>
+                                </select>
+                                <select id="flow-volume-week-filter-prod" class="detailed-filter">
+                                    <option value="1w" selected>Last week</option>
+                                    <option value="2w">Last 2 weeks</option>
+                                    <option value="1m">Last month</option>
+                                    <option value="3m">Last 3 months</option>
+                                </select>
+                            </div>
+                            <div class="flow-volume-container">
+                                <div class="flow-volume-category">
+                                    <h4 class="flow-volume-category-title">New Submissions</h4>
+                                    <div class="flow-volume-metrics">
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Agent Submissions</div>
+                                            <div class="flow-volume-metric-value" data-value="892">0</div>
+                                            <div class="flow-volume-metric-change positive">+8.3%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Pending for Review</div>
+                                            <div class="flow-volume-metric-value" data-value="67">0</div>
+                                            <div class="flow-volume-metric-change neutral">-2.1%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approvals</div>
+                                            <div class="flow-volume-metric-value" data-value="785">0</div>
+                                            <div class="flow-volume-metric-change positive">+10.5%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Rejections</div>
+                                            <div class="flow-volume-metric-value" data-value="40">0</div>
+                                            <div class="flow-volume-metric-change negative">+3.2%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approval/Rejection Ratio</div>
+                                            <div class="flow-volume-metric-value" data-value="19.6">0</div>
+                                            <div class="flow-volume-metric-unit">:1</div>
+                                            <div class="flow-volume-metric-change positive">+7.1%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flow-volume-category">
+                                    <h4 class="flow-volume-category-title">Updates</h4>
+                                    <div class="flow-volume-metrics">
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Agent Submissions</div>
+                                            <div class="flow-volume-metric-value" data-value="355">0</div>
+                                            <div class="flow-volume-metric-change positive">+12.1%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Pending for Review</div>
+                                            <div class="flow-volume-metric-value" data-value="22">0</div>
+                                            <div class="flow-volume-metric-change neutral">-1.8%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approvals</div>
+                                            <div class="flow-volume-metric-value" data-value="304">0</div>
+                                            <div class="flow-volume-metric-change positive">+14.2%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Rejections</div>
+                                            <div class="flow-volume-metric-value" data-value="29">0</div>
+                                            <div class="flow-volume-metric-change negative">+2.8%</div>
+                                        </div>
+                                        <div class="flow-volume-metric-item">
+                                            <div class="flow-volume-metric-label">Approval/Rejection Ratio</div>
+                                            <div class="flow-volume-metric-value" data-value="10.5">0</div>
+                                            <div class="flow-volume-metric-unit">:1</div>
+                                            <div class="flow-volume-metric-change positive">+11.0%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flow-volume-chart-container">
+                                <h4 class="flow-volume-chart-title">Trend Comparison</h4>
+                                <canvas id="flow-volume-trend-chart-prod"></canvas>
+                            </div>
+                        </div>
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Latency Metrics</h3>
+                            <div class="detailed-section-filters">
+                                <select id="latency-creator-filter-prod" class="detailed-filter">
+                                    <option value="all">All Creators</option>
+                                    <option value="microsoft">Microsoft</option>
+                                    <option value="third-party">Third Party</option>
+                                </select>
+                                <select id="latency-week-filter-prod" class="detailed-filter">
+                                    <option value="1w" selected>Last week</option>
+                                    <option value="2w">Last 2 weeks</option>
+                                    <option value="1m">Last month</option>
+                                    <option value="3m">Last 3 months</option>
+                                </select>
+                            </div>
+                            <div class="detailed-metrics-grid">
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">New Submission to Approval Time</div>
+                                    <div class="detailed-metric-value" data-value="2.3">0</div>
+                                    <div class="detailed-metric-unit">days</div>
+                                    <div class="detailed-metric-change positive">-8.2%</div>
+                                </div>
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Time per Publishing Step</div>
+                                    <div class="detailed-metric-value" data-value="0.4">0</div>
+                                    <div class="detailed-metric-unit">days</div>
+                                    <div class="detailed-metric-change positive">-5.0%</div>
+                                </div>
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Agent Update Submission to Approval Time</div>
+                                    <div class="detailed-metric-value" data-value="1.8">0</div>
+                                    <div class="detailed-metric-unit">days</div>
+                                    <div class="detailed-metric-change positive">-10.0%</div>
+                                </div>
+                            </div>
+                            <div class="flow-volume-chart-container">
+                                <h4 class="flow-volume-chart-title">Trend Comparison</h4>
+                                <canvas id="latency-trend-chart-prod"></canvas>
+                            </div>
+                        </div>
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Quality and Risk Metrics</h3>
+                            <div class="detailed-section-filters">
+                                <select id="quality-risk-creator-filter-prod" class="detailed-filter">
+                                    <option value="all">All Creators</option>
+                                    <option value="microsoft">Microsoft</option>
+                                    <option value="third-party">Third Party</option>
+                                </select>
+                                <select id="quality-risk-week-filter-prod" class="detailed-filter">
+                                    <option value="1w" selected>Last week</option>
+                                    <option value="2w">Last 2 weeks</option>
+                                    <option value="1m">Last month</option>
+                                    <option value="3m">Last 3 months</option>
+                                </select>
+                            </div>
+                            <div class="detailed-metrics-grid">
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Average number of rejections before first publish</div>
+                                    <div class="detailed-metric-value" data-value="1.2">0</div>
+                                    <div class="detailed-metric-change positive">-0.3</div>
+                                </div>
+                                <div class="detailed-metric-card">
+                                    <div class="detailed-metric-label">Average number of rejections for update publish</div>
+                                    <div class="detailed-metric-value" data-value="0.8">0</div>
+                                    <div class="detailed-metric-change positive">-0.2</div>
+                                </div>
+                            </div>
+                            <div class="flow-volume-chart-container">
+                                <h4 class="flow-volume-chart-title">Trend Comparison</h4>
+                                <canvas id="rejection-average-trend-chart-prod"></canvas>
+                            </div>
+                            <div class="quality-risk-cta">
+                                <button class="btn-rejection-reasons" onclick="navigateToRejectionReasons('-prod')">Rejection reasons</button>
+                            </div>
+                        </div>
+                        <div class="detailed-section">
+                            <h3 class="detailed-section-title">Ecosystem Metrics</h3>
+                            <div class="ecosystem-tables-container">
+                                <div class="ecosystem-trend-selector">
+                                    <button class="ecosystem-trend-btn active" data-trend="submission" onclick="switchEcosystemTrend('submission', '-prod')">Submission trend</button>
+                                    <button class="ecosystem-trend-btn" data-trend="rejection" onclick="switchEcosystemTrend('rejection', '-prod')">Rejection trends</button>
+                                    <button class="ecosystem-trend-btn" data-trend="approval" onclick="switchEcosystemTrend('approval', '-prod')">Approval trends</button>
+                                    <button class="ecosystem-trend-btn" data-trend="latency" onclick="switchEcosystemTrend('latency', '-prod')">Latency trends</button>
+                                    <button class="ecosystem-trend-btn" data-trend="escalation" onclick="switchEcosystemTrend('escalation', '-prod')">Escalation trends</button>
+                                </div>
+                                <div class="ecosystem-table-wrapper">
+                                    <table class="ecosystem-table" id="ecosystem-trend-table-prod">
+                                        <thead>
+                                            <tr>
+                                                <th>Cohort</th>
+                                                <th>Week 1</th>
+                                                <th>Week 2</th>
+                                                <th>Week 3</th>
+                                                <th>Week 4</th>
+                                                <th>Health</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">Startups (&lt;10 Developers)</td>
+                                                <td>45</td>
+                                                <td>
+                                                    <span class="ecosystem-value">48</span>
+                                                    <span class="ecosystem-change positive">+6.7%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">52</span>
+                                                    <span class="ecosystem-change positive">+8.3%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">55</span>
+                                                    <span class="ecosystem-change positive">+5.8%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +22.2%</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">Mid-sized startups (10 to 50 developers)</td>
+                                                <td>120</td>
+                                                <td>
+                                                    <span class="ecosystem-value">128</span>
+                                                    <span class="ecosystem-change positive">+6.7%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">135</span>
+                                                    <span class="ecosystem-change positive">+5.5%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">142</span>
+                                                    <span class="ecosystem-change positive">+5.2%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +18.3%</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">Established startups (50 to 100 developers)</td>
+                                                <td>280</td>
+                                                <td>
+                                                    <span class="ecosystem-value">295</span>
+                                                    <span class="ecosystem-change positive">+5.4%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">310</span>
+                                                    <span class="ecosystem-change positive">+5.1%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">325</span>
+                                                    <span class="ecosystem-change positive">+4.8%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +16.1%</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ecosystem-cohort-label">MNC (&gt;100 developers)</td>
+                                                <td>450</td>
+                                                <td>
+                                                    <span class="ecosystem-value">465</span>
+                                                    <span class="ecosystem-change positive">+3.3%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">478</span>
+                                                    <span class="ecosystem-change positive">+2.8%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-value">490</span>
+                                                    <span class="ecosystem-change positive">+2.5%</span>
+                                                </td>
+                                                <td>
+                                                    <span class="ecosystem-health uptrend">Uptrend +8.9%</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget rejection-reasons-widget">
+                <div class="widget-header">
+                    <h2>Rejection Reasons</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="churn-info-hint">
+                        <div class="hint-icon">ℹ️</div>
+                        <div class="hint-content">
+                            <div class="hint-title">Gen AI Classification</div>
+                            <p>This is the visual representation of dummy data. In production this dashboard will work with Gen AI capabilities. Gen AI will have access to the rejection reasons data and will be able to classify the rejection reasons based on pre-defined categories. Post classification the data will be displayed here in the dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="rejection-filters">
+                        <select id="rejection-creator-filter-prod">
+                            <option value="all">All Creators</option>
+                            <option value="microsoft">Microsoft</option>
+                            <option value="third-party">Third Party</option>
+                        </select>
+                        <select id="rejection-time-range-filter-prod">
+                            <option value="1w" selected>Last week</option>
+                            <option value="2w">Last 2 weeks</option>
+                            <option value="1m">Last month</option>
+                            <option value="3m">Last 3 months</option>
+                        </select>
+                    </div>
+                    <div class="rejection-overview">
+                        <div class="rejection-chart-wrapper">
+                            <canvas id="rejection-reasons-chart-prod"></canvas>
+                        </div>
+                        <div class="rejection-summary">
+                            <div class="summary-item">
+                                <div class="summary-label">Total Rejections</div>
+                                <div class="summary-value">74</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Top Reason</div>
+                                <div class="summary-value">Security Docs</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rejection-cards">
+                        <div class="rejection-card new">
+                            <div class="card-header">
+                                <div class="rejection-badge new">NEW</div>
+                                <div class="rejection-rank">#1</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Insufficient security documentation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">23</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#2</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Connector scope mismatch</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">18</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#3</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Data handling policy violation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">15</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#4</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Incomplete tenant admin consent</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">5</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 22%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#5</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Invalid API endpoint configuration</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">4</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 17%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#6</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Agent naming convention violation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">3</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 13%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#7</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Insufficient error handling documentation</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 9%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#8</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Missing privacy policy compliance</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 9%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#9</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Inadequate user authentication setup</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">1</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 4%"></div>
+                            </div>
+                        </div>
+                        <div class="rejection-card">
+                            <div class="card-header">
+                                <div class="rejection-rank">#10</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="rejection-reason">Unsupported connector type usage</div>
+                                <div class="rejection-stats">
+                                    <div class="stat-value">1</div>
+                                    <div class="stat-label">rejections</div>
+                                </div>
+                            </div>
+                            <div class="rejection-progress">
+                                <div class="progress-bar" style="width: 4%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget churn-risk-widget">
+                <div class="widget-header">
+                    <h2>Clients on Churn Risk</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="churn-info-text">
+                        <p>Clients are grouped into cohorts based on nature of business and developer headcount. Health threshold is calculated by comparing performance metrics (submissions, approval, rejection, latency) against cohort baseline.</p>
+                    </div>
+                    <div class="churn-filters">
+                        <select id="churn-time-range-filter-prod">
+                            <option value="1w" selected>Last week</option>
+                            <option value="2w">Last 2 weeks</option>
+                            <option value="1m">Last month</option>
+                            <option value="3m">Last 3 months</option>
+                        </select>
+                    </div>
+                    <div class="churn-list">
+                        <div class="churn-item expanded">
+                            <div class="churn-header">
+                                <div class="churn-client-info">
+                                    <div class="churn-client">Acme Corporation</div>
+                                    <div class="churn-cohort">Cohort: Enterprise SaaS | 50-100 Developers</div>
+                                </div>
+                                <div class="churn-status">
+                                    <div class="churn-risk negative">Negative</div>
+                                    <div class="churn-baseline">Baseline: 120 submissions, 85% approval, 8% rejection, 2.1 days latency</div>
+                                </div>
+                            </div>
+                            <div class="churn-vitals">
+                                <div class="vital-metric">
+                                    <div class="vital-label">Submissions</div>
+                                    <div class="vital-value">95</div>
+                                    <div class="vital-baseline">Baseline: 120</div>
+                                    <div class="vital-change negative">-20.8% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Approval Rate</div>
+                                    <div class="vital-value">72%</div>
+                                    <div class="vital-baseline">Baseline: 85%</div>
+                                    <div class="vital-change negative">-15.3% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Rejection Rate</div>
+                                    <div class="vital-value">15%</div>
+                                    <div class="vital-baseline">Baseline: 8%</div>
+                                    <div class="vital-change negative">+87.5% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Avg Latency</div>
+                                    <div class="vital-value">3.4 days</div>
+                                    <div class="vital-baseline">Baseline: 2.1 days</div>
+                                    <div class="vital-change negative">+61.9% vs baseline</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="churn-item expanded">
+                            <div class="churn-header">
+                                <div class="churn-client-info">
+                                    <div class="churn-client">DataWorks LLC</div>
+                                    <div class="churn-cohort">Cohort: Financial Services | 20-50 Developers</div>
+                                </div>
+                                <div class="churn-status">
+                                    <div class="churn-risk negative">Negative</div>
+                                    <div class="churn-baseline">Baseline: 80 submissions, 88% approval, 6% rejection, 1.8 days latency</div>
+                                </div>
+                            </div>
+                            <div class="churn-vitals">
+                                <div class="vital-metric">
+                                    <div class="vital-label">Submissions</div>
+                                    <div class="vital-value">65</div>
+                                    <div class="vital-baseline">Baseline: 80</div>
+                                    <div class="vital-change negative">-18.8% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Approval Rate</div>
+                                    <div class="vital-value">78%</div>
+                                    <div class="vital-baseline">Baseline: 88%</div>
+                                    <div class="vital-change negative">-11.4% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Rejection Rate</div>
+                                    <div class="vital-value">12%</div>
+                                    <div class="vital-baseline">Baseline: 6%</div>
+                                    <div class="vital-change negative">+100% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Avg Latency</div>
+                                    <div class="vital-value">2.6 days</div>
+                                    <div class="vital-baseline">Baseline: 1.8 days</div>
+                                    <div class="vital-change negative">+44.4% vs baseline</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="churn-item expanded">
+                            <div class="churn-header">
+                                <div class="churn-client-info">
+                                    <div class="churn-client">TechStart Inc.</div>
+                                    <div class="churn-cohort">Cohort: Startup | 10-20 Developers</div>
+                                </div>
+                                <div class="churn-status">
+                                    <div class="churn-risk negative">Negative</div>
+                                    <div class="churn-baseline">Baseline: 45 submissions, 82% approval, 10% rejection, 2.5 days latency</div>
+                                </div>
+                            </div>
+                            <div class="churn-vitals">
+                                <div class="vital-metric">
+                                    <div class="vital-label">Submissions</div>
+                                    <div class="vital-value">38</div>
+                                    <div class="vital-baseline">Baseline: 45</div>
+                                    <div class="vital-change negative">-15.6% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Approval Rate</div>
+                                    <div class="vital-value">74%</div>
+                                    <div class="vital-baseline">Baseline: 82%</div>
+                                    <div class="vital-change negative">-9.8% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Rejection Rate</div>
+                                    <div class="vital-value">16%</div>
+                                    <div class="vital-baseline">Baseline: 10%</div>
+                                    <div class="vital-change negative">+60% vs baseline</div>
+                                </div>
+                                <div class="vital-metric">
+                                    <div class="vital-label">Avg Latency</div>
+                                    <div class="vital-value">3.1 days</div>
+                                    <div class="vital-baseline">Baseline: 2.5 days</div>
+                                    <div class="vital-change negative">+24% vs baseline</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget api-health-widget">
+                <div class="widget-header">
+                    <h2>API Health</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="rejection-filters">
+                        <select id="api-health-time-range-filter-prod">
+                            <option value="1w" selected>Last week</option>
+                            <option value="2w">Last 2 weeks</option>
+                            <option value="1m">Last month</option>
+                            <option value="3m">Last 3 months</option>
+                        </select>
+                    </div>
+                    <div class="api-table-container">
+                        <table class="api-table">
+                            <thead>
+                                <tr>
+                                    <th>API Name</th>
+                                    <th>Success Rate</th>
+                                    <th>Avg Latency</th>
+                                    <th>Error Rate</th>
+                                    <th>Latency Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="api-name-cell">Agent Submission API</td>
+                                    <td><span class="table-value success">99.2%</span></td>
+                                    <td><span class="table-value">145ms</span></td>
+                                    <td><span class="table-value error">0.8%</span></td>
+                                    <td class="api-chart-cell">
+                                        <canvas class="api-trend-chart" id="api-trend-prod-1"></canvas>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="api-name-cell">Approval Workflow API</td>
+                                    <td><span class="table-value success">98.7%</span></td>
+                                    <td><span class="table-value">203ms</span></td>
+                                    <td><span class="table-value error">1.3%</span></td>
+                                    <td class="api-chart-cell">
+                                        <canvas class="api-trend-chart" id="api-trend-prod-2"></canvas>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="api-name-cell">Notification Service API</td>
+                                    <td><span class="table-value success">99.5%</span></td>
+                                    <td><span class="table-value">89ms</span></td>
+                                    <td><span class="table-value error">0.5%</span></td>
+                                    <td class="api-chart-cell">
+                                        <canvas class="api-trend-chart" id="api-trend-prod-3"></canvas>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Chatbot Modal -->
+    <div id="chatbot-modal" class="modal">
+        <div class="modal-content chatbot-modal-content">
+            <div class="modal-header">
+                <h2>Identify Escalation Urgency</h2>
+                <button class="modal-close" onclick="closeChatbot()">×</button>
+            </div>
+            <div class="chatbot-body">
+                <div class="chatbot-messages">
+                    <div class="chatbot-message bot">
+                        <div class="message-content">
+                            <p>Hi, I can help you with identifying the urgency of an escalation ticket if you provide me the ticket ID. As you know I don't have access to your ticket system db so I will give you a step by step walkthrough of how I will work.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chatbot-input">
+                    <input type="text" placeholder="Type your question..." id="chatbot-input-field">
+                    <button onclick="sendChatbotMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
